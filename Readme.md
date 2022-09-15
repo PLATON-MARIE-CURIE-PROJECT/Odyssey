@@ -1,5 +1,5 @@
 # Odyssey 
-Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Series Similarity Search", Manos Chatzakis, Panagiota Fatourou, Eleftherios Kosmas, Themis Palpanas, Botao Peng. Under review, (2022)
+Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Series Similarity Search", Manos Chatzakis, Panagiota Fatourou, Eleftherios Kosmas, Themis Palpanas, Botao Peng. Under review, VLDB 2022
 
 ## Roadmap
 * [General]()
