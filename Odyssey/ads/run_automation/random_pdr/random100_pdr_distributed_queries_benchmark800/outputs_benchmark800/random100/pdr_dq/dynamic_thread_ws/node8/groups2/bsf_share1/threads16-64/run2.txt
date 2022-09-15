@@ -1,0 +1,87 @@
+Jobid 550676
+Running on: ncpu[008,032-038]
+SLURM_NTASKS=8
+SLURM_NTASKS_PER_NODE=1
+SLURM_CPUS_PER_TASK=
+SLURM_NNODES=8
+SLURM_CPUS_ON_NODE=128
+Loading compiler version 2021.2.0
+Loading tbb version 2021.2.0
+Loading debugger version 10.1.1
+Loading compiler-rt version 2021.2.0
+Loading dpl version 2021.2.0
+Loading oclfpga version 2021.2.0
+Removing compiler-rt version 2021.2.0
+Removing tbb version 2021.2.0
+Loading mkl version 2021.2.0
+Loading compiler-rt version 2021.2.0
+Loading tbb version 2021.2.0
+Loading mpi version 2021.2.0
+Currently Loaded Modulefiles:
+ 1) debugger/latest                                                                   
+ 2) dpl/latest                                                                        
+ 3) /gpfs/softs/intel/oneapi/compiler/2021.2.0/linux/lib/oclfpga/modulefiles/oclfpga  
+ 4) compiler/2021.2.0                                                                 
+ 5) compiler-rt/2021.2.0                                                              
+ 6) tbb/2021.2.0                                                                      
+ 7) mkl/2021.2.0                                                                      
+ 8) mpi/2021.2.0                                                                      
+ 9) intel/21U2/suite                                                                  
+================ MASTER NODE STARTING OUTPUT ================
+[Total Processes, File Label]: [8, without-label]
+[Leaf Size, Min Leaf Size, Read Block, Flush Limit]: [2000, 2000, 20000, 1000000]
+[Dataset, Queries]: [/gpfs/scratch/chatzakis/randomDatasets/data_size104857600random100GB_len256_znorm.bin, /gpfs/scratch/chatzakis/randomDatasets/queries_ctrl1000_random_len256_znorm.bin]
+Time series size: 256
+System-Wide BSF: 0
+[Dataset_Size, Queries_Size]: [104857600, 800]
+[Index Workers, Query Workers]: [16, 64]
+Query Mode: 24
+Distributed Queries Burst: 1
+Chunk to load: 0
+Gather query prediction statistics: 0
+All Nodes Index Dataset: 0
+Query Estimations Filename: /gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt
+TH Division Factor: 8
+Basis Func Filename: /gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/pq_analysis/estimations_parameters/random_100classic_sigmoid.txt
+Workstealing: 1
+Total node groups: 2
+=============================================================
+[MC] - Process with rank [0] dataset_size (# number of data series): 104857600
+[MC] - Process with rank [0] times_series_per_process (# number of data series per process): 52428800.000000
+[MC] - From MASTER Node: Calculated time_series_per_node_group:  52428800
+Group [0]: 
+    Time Series: 52428800
+    Total Nodes: 4
+    Coordinator Node: 0
+    Nodes: [ 0 1 2 3 ]
+Group [1]: 
+    Time Series: 52428800
+    Total Nodes: 4
+    Coordinator Node: 4
+    Nodes: [ 4 5 6 7 ]
+[MC] - Master: Index Creation with 16 threads.
+[MC] - Master: Index creation phase completed.
+[MC] - Master: PDR-Dynamic Distributed Query Answering with 64 threads.
+[MC] - Node: 6, query: 797, result: 81.868561, time: 0.009012, pqs: 20, pqs_stolen: 0
+[MC] - Node: 7, query: 795, result: 101.572006, time: 0.008097, pqs: 28, pqs_stolen: 0
+[MC] - Node: 7, query: 799, result: 37.195293, time: 0.004297, pqs: 4, pqs_stolen: 0
+[MC] - Node: 6, query: 795, result: 101.572006, time: 0.012789, pqs: 29, pqs_stolen: 0
+[MC] - Node: 5, query: 795, result: 101.572006, time: 0.011164, pqs: 33, pqs_stolen: 0
+[MC] - Node: 7, query: 795, result: 101.572006, time: 0.008839, pqs: 30, pqs_stolen: 0
+[MC] - Node: 0, query: 795, result: 101.572006, time: 0.010235, pqs: 24, pqs_stolen: 0
+[MC] - Node: 0, query: 799, result: 37.195293, time: 0.004126, pqs: 4, pqs_stolen: 0
+[MC] - Node: 0, query: 798, result: 41.564857, time: 0.004123, pqs: 4, pqs_stolen: 0
+[MC] - Node: 0, query: 795, result: 101.572006, time: 0.006388, pqs: 25, pqs_stolen: 0
+[MC] - Node: 0, query: 799, result: 37.195293, time: 0.004015, pqs: 6, pqs_stolen: 0
+[MC] - Node: 0, query: 795, result: 101.572006, time: 0.007994, pqs: 30, pqs_stolen: 0
+[MC] - Node: 1, query: 795, result: 101.572006, time: 0.010701, pqs: 34, pqs_stolen: 0
+[ncpu033:998113:0:1008509] Caught signal 11 (Segmentation fault: address not mapped to object at address 0xffffffff)
+[MC] - Node: 0, query: 795, result: 101.572006, time: 0.012119, pqs: 38, pqs_stolen: 0
+[MC] - Node: 0, query: 795, result: 101.572006, time: 0.006155, pqs: 33, pqs_stolen: 0
+[MC] - Node: 1, query: 795, result: 101.572006, time: 0.026552, pqs: 40, pqs_stolen: 0
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 2 PID 998113 RUNNING AT ncpu033
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================

@@ -1,0 +1,132 @@
+---------
+COMPILE
+---------
+
+You can compile with make (you need the GNU scientific library)
+
+gcc main.c -o generator -lm -lgsl -lgslcblas
+
+
+---------
+RUN
+---------
+Before running the generator do this to create random sets at each run 
+export GSL_RNG_SEED=$RANDOM
+
+./generator --size 10 --length 256 --z-normalize > queryexample.bin
+
+./generator --size 10000000 --length 256 --z-normalize --label-size 100 > labelexample.bin
+--size is how many time series you want
+
+--length is the length of each time series
+
+--z-normalize is a binary flag that specifies that we want them z-normalized
+
+The output is binary and is written on stdout.
+
+
+-------
+ekosmas
+-------
+
+# size := Number Of Time Series
+# ts := length * float (in our case: 256*sizeof(float) ==> 256*4 ==> 1024 Bytes)
+
+./generator --size 1024 --length 256 --z-normalize > /home/ekosmas/datasets/dataset1MB.bin
+./generator --size 10240 --length 256 --z-normalize > /home/ekosmas/datasets/dataset10MB.bin
+./generator --size 102400 --length 256 --z-normalize > /home/ekosmas/datasets/dataset100MB.bin
+./generator --size 1048576 --length 256 --z-normalize > /home/ekosmas/datasets/dataset1GB.bin
+./generator --size 10485760 --length 256 --z-normalize > /home/ekosmas/datasets/dataset10GB.bin
+./generator --size 104857600 --length 256 --z-normalize > /home/ekosmas/datasets/dataset100GB.bin
+
+./generator --size 10 --length 256 --z-normalize > /home/ekosmas/datasets/query10.bin
+./generator --size 100 --length 256 --z-normalize > /home/ekosmas/datasets/query100.bin
+./generator --size 1000 --length 256 --z-normalize > /home/ekosmas/datasets/query1000.bin
+
+
+manolis
+
+# prepei na to treksoyme mesa apo ton vader (den trexei mesa sto spare mpes sto home)
+
+0) gcc main.c -o generator -lm -lgsl -lgslcblas (only on vader)
+1) export GSL_RNG_SEED=$RANDOM
+2) Generate dataset: 
+
+# 20 GB
+                   20971520
+./generator --size 20971520 --length 256 --z-normalize > /spare/papadosp/dataset20GB.bin
+
+# 100 GB
+./generator --size 104857600 --length 256 --z-normalize > /spare/papadosp/dataset100GB.bin
+
+
+
+-------------------------------------------------------------------------------------------------------
+./generator --size 1024 --length 256 --z-normalize > /home/ekosmas/datasets/dataset1MB.bin
+
+1024 data series 
+each data series is 256 float 
+float 4 bytes
+
+4*256 = 1024
+1024(one data series)*1024(data series) = 1 MB
+-------------------------------------------------------------------------------------------------------
+
+
+
+# manol
+
+When we run the ./generator it need the following shared libraries:
+1) libgsl.so.0
+2) libgslcblas.so.0
+
+So we must download these libraries and export the path:
+source: https://stackoverflow.com/questions/22222666/error-while-loading-shared-libraries-libgsl-so-0-cannot-open-shared-object-fil
+
+
+
+1) wget http://gnu.mirror.vexxhost.com/gsl/gsl-1.6.tar.gz
+2) tar -zxvf gsl-1.6.tar.gz
+3) cd gsl-1.16
+4) ./configure
+5) make
+6) (Works and without this step) sudo make install
+
+# find the path of the libraries:
+7) find gsl-1.6/ -name libgsl.so.0
+   find gsl-1.6/ -name libgslcblas.so.0 
+
+# Exports the Paths
+8) 
+export LD_PRELOAD=$LD_PRELOAD:/home1/public/papadosp/gsl-1.6/.libs/libgsl.so.0
+export LD_PRELOAD=$LD_PRELOAD:/home1/public/papadosp/gsl-1.6/cblas/.libs/libgslcblas.so.0
+
+export LD_PRELOAD=$LD_PRELOAD:/gpfs/users/chatzakis/devlibs/gsl-1.6/.libs/libgsl.so.0
+export LD_PRELOAD=$LD_PRELOAD:/gpfs/users/chatzakis/devlibs/gsl-1.6/cblas/.libs/libgslcblas.so.0
+
+export LD_PRELOAD=$LD_PRELOAD:/gpfs/users/chatzakis/devlibs/readline-8.1/shlib/libreadline.so.8.1
+ 
+
+OR open .bashrc
+
+paste these to exports and run source .bashrc
+Now you can run the generator without the need to export the paths every time you login again.
+
+But do not forget to export new $RANDOM number!
+
+
+----------------------
+Others:
+
+# Linux permissions user, group, other
+chmod og-rwx test.txt # remove all permissions for other and group.
+
+
+[papadosp@vader ~]$ ./transfer_100GB.sh
+dataset100GB.bin                                                                100%  100GB 101.8MB/s   16:46
+dataset100GB.bin                                                                100%  100GB 100.8MB/s   16:56
+dataset100GB.bin                                                                100%  100GB 101.2MB/s   16:52
+dataset100GB.bin                                                                100%  100GB  99.9MB/s   17:05
+dataset100GB.bin                                                                100%  100GB  99.0MB/s   17:14
+[papadosp@vader ~]$
+----------------------

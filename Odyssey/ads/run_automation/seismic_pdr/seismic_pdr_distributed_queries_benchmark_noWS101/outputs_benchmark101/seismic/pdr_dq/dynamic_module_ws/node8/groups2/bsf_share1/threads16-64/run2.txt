@@ -1,0 +1,111 @@
+Jobid 558204
+Running on: ncpu[007-009,015,036-039]
+SLURM_NTASKS=8
+SLURM_NTASKS_PER_NODE=1
+SLURM_CPUS_PER_TASK=
+SLURM_NNODES=8
+SLURM_CPUS_ON_NODE=128
+Loading compiler version 2021.2.0
+Loading tbb version 2021.2.0
+Loading debugger version 10.1.1
+Loading compiler-rt version 2021.2.0
+Loading dpl version 2021.2.0
+Loading oclfpga version 2021.2.0
+Removing compiler-rt version 2021.2.0
+Removing tbb version 2021.2.0
+Loading mkl version 2021.2.0
+Loading compiler-rt version 2021.2.0
+Loading tbb version 2021.2.0
+Loading mpi version 2021.2.0
+Currently Loaded Modulefiles:
+ 1) debugger/latest                                                                   
+ 2) dpl/latest                                                                        
+ 3) /gpfs/softs/intel/oneapi/compiler/2021.2.0/linux/lib/oclfpga/modulefiles/oclfpga  
+ 4) compiler/2021.2.0                                                                 
+ 5) compiler-rt/2021.2.0                                                              
+ 6) tbb/2021.2.0                                                                      
+ 7) mkl/2021.2.0                                                                      
+ 8) mpi/2021.2.0                                                                      
+ 9) intel/21U2/suite                                                                  
+================ MASTER NODE STARTING OUTPUT ================
+[Total Processes, File Label]: [8, without-label]
+[Leaf Size, Min Leaf Size, Read Block, Flush Limit]: [2000, 2000, 20000, 1000000]
+[Dataset, Queries]: [/gpfs/scratch/chatzakis/data_size100M_seismic_len256_znorm.bin, /gpfs/scratch/chatzakis/benchmark101_seismic_len256_znorm.bin]
+Time series size: 256
+System-Wide BSF: 0
+[Dataset_Size, Queries_Size]: [100000000, 101]
+[Index Workers, Query Workers]: [16, 64]
+Query Mode: 22
+Distributed Queries Burst: 1
+Chunk to load: 0
+Gather query prediction statistics: 0
+All Nodes Index Dataset: 0
+Query Estimations Filename: /gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark101.txt
+TH Division Factor: 16
+Basis Func Filename: /gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/pq_analysis/estimations_parameters/seismic_100classic_sigmoid.txt
+Workstealing: 1
+Total node groups: 2
+=============================================================
+[MC] - Process with rank [0] dataset_size (# number of data series): 100000000
+[MC] - Process with rank [0] times_series_per_process (# number of data series per process): 50000000.000000
+[MC] - From MASTER Node: Calculated time_series_per_node_group:  50000000
+Group [0]: 
+    Time Series: 50000000
+    Total Nodes: 4
+    Coordinator Node: 0
+    Nodes: [ 0 1 2 3 ]
+Group [1]: 
+    Time Series: 50000000
+    Total Nodes: 4
+    Coordinator Node: 4
+    Nodes: [ 4 5 6 7 ]
+[31mERROR[0m, Computed power was not correct (124186.663594) reducing it to 100.000000
+
+[31mERROR[0m, Computed power was not correct (106610.944680) reducing it to 100.000000
+
+[MC] - Master: Index Creation with 16 threads.
+[31mERROR[0m, Computed power was not correct (65590.252614) reducing it to 100.000000
+
+[MC] - Master: Index creation phase completed.
+[MC] - Master: PDR-Dynamic Distributed Query Answering with 64 threads.
+[MC] - Node: 0, query: 100, result: 290.060272, time: 0.060487, pqs: 61, pqs_stolen: 0
+[MC] - Node: 1, query: 100, result: 290.982178, time: 0.084246, pqs: 58, pqs_stolen: 0
+[MC] - Node: 2, query: 100, result: 290.262543, time: 0.090275, pqs: 61, pqs_stolen: 0
+[MC] - Node: 0, query: 100, result: 282.617523, time: 0.070043, pqs: 73, pqs_stolen: 0
+[MC] - Node: 0, query: 100, result: 282.140259, time: 0.039939, pqs: 57, pqs_stolen: 0
+[MC] - Node: 7, query: 19, result: 14.318028, time: 0.008949, pqs: 31, pqs_stolen: 0
+[MC] - Node: 1, query: 100, result: 280.261993, time: 0.163249, pqs: 85, pqs_stolen: 0
+[MC] - Node: 0, query: 100, result: 280.261993, time: 0.069597, pqs: 72, pqs_stolen: 0
+[MC] - Node: 1, query: 100, result: 280.261993, time: 0.069743, pqs: 57, pqs_stolen: 0
+[MC] - Node: 2, query: 100, result: 280.261993, time: 0.201402, pqs: 115, pqs_stolen: 0
+[MC] - Node: 7, query: 100, result: 280.261993, time: 0.106060, pqs: 58, pqs_stolen: 0
+[MC] - Node: 7, query: 88, result: 56.722473, time: 0.011619, pqs: 50, pqs_stolen: 0
+[MC] - Node: 6, query: 100, result: 280.261993, time: 0.140881, pqs: 60, pqs_stolen: 0
+[MC] - Node: 0, query: 100, result: 280.261993, time: 0.139212, pqs: 112, pqs_stolen: 0
+[MC] - Node: 2, query: 100, result: 280.261993, time: 0.094110, pqs: 74, pqs_stolen: 0
+[MC] - Node: 7, query: 100, result: 280.261993, time: 0.054050, pqs: 61, pqs_stolen: 0
+[MC] - Node: 1, query: 100, result: 280.261993, time: 0.085282, pqs: 61, pqs_stolen: 0
+[MC] - Node: 7, query: 88, result: 56.722473, time: 0.008269, pqs: 46, pqs_stolen: 0
+[MC] - Node: 6, query: 88, result: 212.932617, time: 0.052854, pqs: 49, pqs_stolen: 0
+[MC] - Node: 1, query: 100, result: 280.261993, time: 0.076181, pqs: 59, pqs_stolen: 0
+[MC] - Node: 7, query: 100, result: 280.261993, time: 0.075326, pqs: 72, pqs_stolen: 0
+[MC] - Node: 0, query: 100, result: 280.261993, time: 0.091489, pqs: 84, pqs_stolen: 0
+[MC] - Node: 7, query: 88, result: 56.722473, time: 0.006000, pqs: 44, pqs_stolen: 0
+[MC] - Node: 2, query: 100, result: 270.837830, time: 0.131658, pqs: 82, pqs_stolen: 0
+[MC] - Node: 6, query: 100, result: 270.837830, time: 0.132975, pqs: 82, pqs_stolen: 0
+[MC] - Node: 6, query: 88, result: 56.722473, time: 0.011293, pqs: 54, pqs_stolen: 0
+[MC] - Node: 7, query: 100, result: 270.837830, time: 0.125315, pqs: 110, pqs_stolen: 0
+[MC] - Node: 6, query: 100, result: 270.837830, time: 0.066261, pqs: 57, pqs_stolen: 0
+[ncpu037:3029505:0:3031256] Caught signal 11 (Segmentation fault: address not mapped to object at address 0xffffffff)
+[MC] - Node: 7, query: 100, result: 270.837830, time: 0.039333, pqs: 56, pqs_stolen: 0
+[MC] - Node: 7, query: 100, result: 270.837830, time: 0.091119, pqs: 83, pqs_stolen: 0
+[MC] - Node: 7, query: 100, result: 270.837830, time: 0.076820, pqs: 69, pqs_stolen: 0
+[MC] - Node: 6, query: 100, result: 270.837830, time: 0.203066, pqs: 104, pqs_stolen: 0
+[31mERROR[0m, Computed power was not correct (45139.236411) reducing it to 100.000000
+
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   RANK 5 PID 3029505 RUNNING AT ncpu037
+=   KILLED BY SIGNAL: 11 (Segmentation fault)
+===================================================================================

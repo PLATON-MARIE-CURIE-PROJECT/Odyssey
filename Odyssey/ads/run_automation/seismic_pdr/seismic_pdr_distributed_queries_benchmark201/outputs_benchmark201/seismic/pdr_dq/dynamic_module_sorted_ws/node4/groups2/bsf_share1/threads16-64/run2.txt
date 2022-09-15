@@ -1,0 +1,695 @@
+Jobid 539940
+Running on: ncpu[010,012,026-027]
+SLURM_NTASKS=4
+SLURM_NTASKS_PER_NODE=1
+SLURM_CPUS_PER_TASK=
+SLURM_NNODES=4
+SLURM_CPUS_ON_NODE=128
+Loading compiler version 2021.2.0
+Loading tbb version 2021.2.0
+Loading debugger version 10.1.1
+Loading compiler-rt version 2021.2.0
+Loading dpl version 2021.2.0
+Loading oclfpga version 2021.2.0
+Removing compiler-rt version 2021.2.0
+Removing tbb version 2021.2.0
+Loading mkl version 2021.2.0
+Loading compiler-rt version 2021.2.0
+Loading tbb version 2021.2.0
+Loading mpi version 2021.2.0
+Currently Loaded Modulefiles:
+ 1) debugger/latest                                                                   
+ 2) dpl/latest                                                                        
+ 3) /gpfs/softs/intel/oneapi/compiler/2021.2.0/linux/lib/oclfpga/modulefiles/oclfpga  
+ 4) compiler/2021.2.0                                                                 
+ 5) compiler-rt/2021.2.0                                                              
+ 6) tbb/2021.2.0                                                                      
+ 7) mkl/2021.2.0                                                                      
+ 8) mpi/2021.2.0                                                                      
+ 9) intel/21U2/suite                                                                  
+================ MASTER NODE STARTING OUTPUT ================
+[Total Processes, File Label]: [4, without-label]
+[Leaf Size, Min Leaf Size, Read Block, Flush Limit]: [2000, 2000, 20000, 1000000]
+[Dataset, Queries]: [/gpfs/scratch/chatzakis/data_size100M_seismic_len256_znorm.bin, /gpfs/scratch/chatzakis/benchmark201_seismic_len256_znorm.bin]
+Time series size: 256
+System-Wide BSF: 0
+[Dataset_Size, Queries_Size]: [100000000, 201]
+[Index Workers, Query Workers]: [16, 64]
+Query Mode: 25
+Distributed Queries Burst: 1
+Chunk to load: 0
+Gather query prediction statistics: 0
+All Nodes Index Dataset: 0
+Query Estimations Filename: /gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark201.txt
+TH Division Factor: 16
+Basis Func Filename: /gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/pq_analysis/estimations_parameters/seismic_100classic_sigmoid.txt
+Workstealing: 1
+Total node groups: 2
+=============================================================
+[MC] - Process with rank [0] dataset_size (# number of data series): 100000000
+[MC] - Process with rank [0] times_series_per_process (# number of data series per process): 50000000.000000
+[MC] - From MASTER Node: Calculated time_series_per_node_group:  50000000
+Group [0]: 
+    Time Series: 50000000
+    Total Nodes: 2
+    Coordinator Node: 0
+    Nodes: [ 0 1 ]
+Group [1]: 
+    Time Series: 50000000
+    Total Nodes: 2
+    Coordinator Node: 2
+    Nodes: [ 2 3 ]
+[MC] - Master: Index Creation with 16 threads.
+[MC] - Master: Index creation phase completed.
+[MC] - Master: PDR-Dynamic Distributed Query Answering with 64 threads.
+[MC] - Node: 0, query: 1, result: 27.888966, time: 0.068869, pqs: 1186, pqs_stolen: 0
+[MC] - Node: 2, query: 1, result: 27.888966, time: 0.070612, pqs: 1302, pqs_stolen: 0
+[MC] - Node: 2, query: 2, result: 86.504776, time: 0.030234, pqs: 1078, pqs_stolen: 0
+[MC] - Node: 0, query: 2, result: 86.504776, time: 0.034325, pqs: 1091, pqs_stolen: 0
+[MC] - Node: 2, query: 3, result: 86.361519, time: 0.038526, pqs: 1079, pqs_stolen: 0
+[MC] - Node: 0, query: 3, result: 86.361519, time: 0.038060, pqs: 1076, pqs_stolen: 0
+[MC] - Node: 2, query: 4, result: 86.068436, time: 0.050120, pqs: 1149, pqs_stolen: 0
+[MC] - Node: 0, query: 4, result: 86.068436, time: 0.050328, pqs: 1001, pqs_stolen: 0
+[MC] - Node: 2, query: 5, result: 79.310028, time: 0.026058, pqs: 958, pqs_stolen: 0
+[MC] - Node: 0, query: 5, result: 79.310028, time: 0.029520, pqs: 676, pqs_stolen: 0
+[MC] - Node: 2, query: 6, result: 85.228210, time: 0.043821, pqs: 1019, pqs_stolen: 0
+[MC] - Node: 0, query: 6, result: 85.228210, time: 0.045994, pqs: 1158, pqs_stolen: 0
+[MC] - Node: 2, query: 7, result: 88.782333, time: 0.033671, pqs: 1081, pqs_stolen: 0
+[MC] - Node: 0, query: 7, result: 88.782333, time: 0.033851, pqs: 938, pqs_stolen: 0
+[MC] - Node: 2, query: 8, result: 90.403107, time: 0.053637, pqs: 1113, pqs_stolen: 0
+[MC] - Node: 0, query: 8, result: 90.403107, time: 0.052806, pqs: 1197, pqs_stolen: 0
+[MC] - Node: 2, query: 9, result: 29.634478, time: 0.019779, pqs: 1307, pqs_stolen: 0
+[MC] - Node: 0, query: 9, result: 29.634478, time: 0.015081, pqs: 976, pqs_stolen: 0
+[MC] - Node: 2, query: 10, result: 84.813583, time: 0.025519, pqs: 835, pqs_stolen: 0
+[MC] - Node: 0, query: 10, result: 84.813583, time: 0.023800, pqs: 672, pqs_stolen: 0
+[MC] - Node: 2, query: 11, result: 83.789047, time: 0.029385, pqs: 1032, pqs_stolen: 0
+[MC] - Node: 0, query: 11, result: 83.789047, time: 0.030411, pqs: 808, pqs_stolen: 0
+[MC] - Node: 2, query: 12, result: 91.369568, time: 0.038721, pqs: 1091, pqs_stolen: 0
+[MC] - Node: 0, query: 12, result: 91.369568, time: 0.039568, pqs: 1186, pqs_stolen: 0
+[MC] - Node: 2, query: 13, result: 89.303795, time: 0.050271, pqs: 1181, pqs_stolen: 0
+[MC] - Node: 0, query: 13, result: 89.303795, time: 0.050718, pqs: 1143, pqs_stolen: 0
+[MC] - Node: 2, query: 14, result: 83.108414, time: 0.038698, pqs: 1146, pqs_stolen: 0
+[MC] - Node: 0, query: 14, result: 83.108414, time: 0.040208, pqs: 1391, pqs_stolen: 0
+[MC] - Node: 2, query: 15, result: 83.152496, time: 0.036364, pqs: 1011, pqs_stolen: 0
+[MC] - Node: 0, query: 15, result: 83.152496, time: 0.038639, pqs: 1086, pqs_stolen: 0
+[MC] - Node: 2, query: 16, result: 77.146782, time: 0.073525, pqs: 1242, pqs_stolen: 0
+[MC] - Node: 0, query: 16, result: 77.146782, time: 0.079373, pqs: 1002, pqs_stolen: 0
+[MC] - Node: 2, query: 17, result: 82.767532, time: 0.054050, pqs: 1150, pqs_stolen: 0
+[MC] - Node: 0, query: 17, result: 82.767532, time: 0.065903, pqs: 1064, pqs_stolen: 0
+[MC] - Node: 2, query: 18, result: 3.786863, time: 0.035894, pqs: 1184, pqs_stolen: 0
+[MC] - Node: 0, query: 18, result: 3.786863, time: 0.013527, pqs: 1110, pqs_stolen: 0
+[MC] - Node: 2, query: 19, result: 87.191147, time: 0.041122, pqs: 1252, pqs_stolen: 0
+[MC] - Node: 0, query: 19, result: 87.191147, time: 0.041917, pqs: 758, pqs_stolen: 0
+[MC] - Node: 2, query: 20, result: 88.722656, time: 0.030668, pqs: 911, pqs_stolen: 0
+[MC] - Node: 0, query: 20, result: 88.722656, time: 0.031392, pqs: 556, pqs_stolen: 0
+[MC] - Node: 2, query: 21, result: 71.450920, time: 0.031183, pqs: 1183, pqs_stolen: 0
+[MC] - Node: 0, query: 21, result: 71.450920, time: 0.030778, pqs: 944, pqs_stolen: 0
+[MC] - Node: 2, query: 22, result: 88.266075, time: 0.044863, pqs: 1268, pqs_stolen: 0
+[MC] - Node: 0, query: 22, result: 88.266075, time: 0.047005, pqs: 966, pqs_stolen: 0
+[MC] - Node: 2, query: 23, result: 85.986374, time: 0.031213, pqs: 902, pqs_stolen: 0
+[MC] - Node: 0, query: 23, result: 85.986374, time: 0.030898, pqs: 1151, pqs_stolen: 0
+[MC] - Node: 2, query: 24, result: 72.629082, time: 0.030344, pqs: 901, pqs_stolen: 0
+[MC] - Node: 0, query: 24, result: 72.629082, time: 0.030460, pqs: 1093, pqs_stolen: 0
+[MC] - Node: 2, query: 25, result: 71.290764, time: 0.024338, pqs: 1013, pqs_stolen: 0
+[MC] - Node: 0, query: 25, result: 71.290764, time: 0.023789, pqs: 1093, pqs_stolen: 0
+[MC] - Node: 2, query: 26, result: 73.762123, time: 0.063018, pqs: 1348, pqs_stolen: 0
+[MC] - Node: 0, query: 26, result: 73.762123, time: 0.062662, pqs: 1292, pqs_stolen: 0
+[MC] - Node: 2, query: 27, result: 85.939911, time: 0.055960, pqs: 1292, pqs_stolen: 0
+[MC] - Node: 0, query: 27, result: 85.939911, time: 0.057976, pqs: 1247, pqs_stolen: 0
+[MC] - Node: 2, query: 28, result: 78.616913, time: 0.042143, pqs: 1171, pqs_stolen: 0
+[MC] - Node: 0, query: 28, result: 78.616913, time: 0.041647, pqs: 1062, pqs_stolen: 0
+[MC] - Node: 2, query: 29, result: 76.023094, time: 0.030349, pqs: 1205, pqs_stolen: 0
+[MC] - Node: 0, query: 29, result: 76.023094, time: 0.030467, pqs: 1057, pqs_stolen: 0
+[MC] - Node: 2, query: 30, result: 82.768234, time: 0.080843, pqs: 1251, pqs_stolen: 0
+[MC] - Node: 0, query: 30, result: 82.768234, time: 0.076893, pqs: 1205, pqs_stolen: 0
+[MC] - Node: 2, query: 31, result: 80.602905, time: 0.036320, pqs: 1159, pqs_stolen: 0
+[MC] - Node: 0, query: 31, result: 80.602905, time: 0.037167, pqs: 987, pqs_stolen: 0
+[MC] - Node: 2, query: 32, result: 86.795052, time: 0.036189, pqs: 1190, pqs_stolen: 0
+[MC] - Node: 0, query: 32, result: 86.795052, time: 0.038762, pqs: 1141, pqs_stolen: 0
+[MC] - Node: 0, query: 33, result: 4.698102, time: 0.016810, pqs: 1315, pqs_stolen: 0
+[MC] - Node: 2, query: 33, result: 4.698102, time: 0.022341, pqs: 1327, pqs_stolen: 0
+[MC] - Node: 0, query: 34, result: 74.622124, time: 0.029772, pqs: 1062, pqs_stolen: 0
+[MC] - Node: 2, query: 34, result: 74.622124, time: 0.029490, pqs: 1164, pqs_stolen: 0
+[MC] - Node: 2, query: 35, result: 43.379681, time: 0.037339, pqs: 1199, pqs_stolen: 0
+[MC] - Node: 0, query: 35, result: 43.379681, time: 0.040330, pqs: 1317, pqs_stolen: 0
+[MC] - Node: 2, query: 36, result: 53.242203, time: 0.021391, pqs: 801, pqs_stolen: 0
+[MC] - Node: 0, query: 36, result: 53.242203, time: 0.023631, pqs: 1217, pqs_stolen: 0
+[MC] - Node: 2, query: 37, result: 77.639732, time: 0.087808, pqs: 1282, pqs_stolen: 0
+[MC] - Node: 3, query: 0, result: 270.837830, time: 1.531675, pqs: 1153, pqs_stolen: 0
+[MC] - Node: 0, query: 37, result: 77.639732, time: 0.088348, pqs: 1364, pqs_stolen: 0
+[MC] - Node: 2, query: 38, result: 76.428864, time: 0.029858, pqs: 981, pqs_stolen: 0
+[MC] - Node: 0, query: 38, result: 76.428864, time: 0.029537, pqs: 1168, pqs_stolen: 0
+[MC] - Node: 3, query: 39, result: 79.822418, time: 0.056535, pqs: 1358, pqs_stolen: 0
+[MC] - Node: 0, query: 39, result: 84.766754, time: 0.061537, pqs: 1296, pqs_stolen: 0
+[MC] - Node: 3, query: 41, result: 86.292267, time: 0.039900, pqs: 1205, pqs_stolen: 0
+[MC] - Node: 1, query: 0, result: 270.837830, time: 1.643261, pqs: 1181, pqs_stolen: 0
+[MC] - Node: 2, query: 40, result: 77.994415, time: 0.098344, pqs: 1277, pqs_stolen: 0
+[MC] - Node: 3, query: 42, result: 78.212929, time: 0.038710, pqs: 1336, pqs_stolen: 0
+[MC] - Node: 0, query: 40, result: 47.729271, time: 0.047244, pqs: 1128, pqs_stolen: 0
+[MC] - Node: 0, query: 42, result: 42.007385, time: 0.019295, pqs: 1289, pqs_stolen: 0
+[MC] - Node: 1, query: 41, result: 83.559364, time: 0.037696, pqs: 1321, pqs_stolen: 0
+[MC] - Node: 2, query: 43, result: 80.417160, time: 0.040059, pqs: 1514, pqs_stolen: 0
+[MC] - Node: 3, query: 44, result: 72.492203, time: 0.057696, pqs: 1379, pqs_stolen: 0
+[MC] - Node: 0, query: 43, result: 80.417160, time: 0.041649, pqs: 1291, pqs_stolen: 0
+[MC] - Node: 2, query: 45, result: 79.405640, time: 0.040614, pqs: 1424, pqs_stolen: 0
+[MC] - Node: 1, query: 44, result: 72.492203, time: 0.058203, pqs: 1328, pqs_stolen: 0
+[MC] - Node: 3, query: 46, result: 79.542046, time: 0.035312, pqs: 1415, pqs_stolen: 0
+[MC] - Node: 0, query: 45, result: 79.405640, time: 0.029774, pqs: 1260, pqs_stolen: 0
+[MC] - Node: 2, query: 47, result: 79.957062, time: 0.043415, pqs: 1488, pqs_stolen: 0
+[MC] - Node: 1, query: 46, result: 79.542046, time: 0.036792, pqs: 1459, pqs_stolen: 0
+[MC] - Node: 3, query: 48, result: 70.774261, time: 0.034287, pqs: 1511, pqs_stolen: 0
+[MC] - Node: 1, query: 48, result: 1.334871, time: 0.008406, pqs: 1070, pqs_stolen: 0
+[MC] - Node: 0, query: 47, result: 81.226929, time: 0.045016, pqs: 1181, pqs_stolen: 0
+[MC] - Node: 2, query: 49, result: 79.316238, time: 0.036426, pqs: 1310, pqs_stolen: 0
+[MC] - Node: 3, query: 50, result: 68.231300, time: 0.026726, pqs: 1192, pqs_stolen: 0
+[MC] - Node: 2, query: 51, result: 54.248344, time: 0.011026, pqs: 969, pqs_stolen: 0
+[MC] - Node: 1, query: 49, result: 79.316238, time: 0.036210, pqs: 1443, pqs_stolen: 0
+[MC] - Node: 0, query: 50, result: 68.231300, time: 0.027570, pqs: 962, pqs_stolen: 0
+[MC] - Node: 1, query: 51, result: 65.595871, time: 0.011446, pqs: 593, pqs_stolen: 0
+[MC] - Node: 3, query: 52, result: 75.003433, time: 0.037666, pqs: 1486, pqs_stolen: 0
+[MC] - Node: 2, query: 53, result: 75.506943, time: 0.036414, pqs: 1358, pqs_stolen: 0
+[MC] - Node: 0, query: 52, result: 79.297424, time: 0.042117, pqs: 1300, pqs_stolen: 0
+[MC] - Node: 1, query: 53, result: 75.506943, time: 0.037295, pqs: 1289, pqs_stolen: 0
+[MC] - Node: 2, query: 55, result: 69.317085, time: 0.023408, pqs: 1056, pqs_stolen: 0
+[MC] - Node: 3, query: 54, result: 72.840012, time: 0.039758, pqs: 1715, pqs_stolen: 0
+[MC] - Node: 1, query: 55, result: 73.699402, time: 0.026757, pqs: 1183, pqs_stolen: 0
+[MC] - Node: 2, query: 56, result: 73.525536, time: 0.026864, pqs: 1188, pqs_stolen: 0
+[MC] - Node: 3, query: 57, result: 66.380875, time: 0.016645, pqs: 970, pqs_stolen: 0
+[MC] - Node: 0, query: 54, result: 72.840012, time: 0.039414, pqs: 1108, pqs_stolen: 0
+[MC] - Node: 0, query: 57, result: 64.101044, time: 0.016762, pqs: 849, pqs_stolen: 0
+[MC] - Node: 1, query: 56, result: 72.733337, time: 0.029263, pqs: 1057, pqs_stolen: 0
+[MC] - Node: 2, query: 58, result: 77.575867, time: 0.026064, pqs: 1435, pqs_stolen: 0
+[MC] - Node: 3, query: 59, result: 73.359909, time: 0.037326, pqs: 1463, pqs_stolen: 0
+[MC] - Node: 2, query: 60, result: 76.641518, time: 0.025641, pqs: 1417, pqs_stolen: 0
+[MC] - Node: 0, query: 58, result: 77.575867, time: 0.034349, pqs: 763, pqs_stolen: 0
+[MC] - Node: 1, query: 59, result: 75.706215, time: 0.038611, pqs: 1501, pqs_stolen: 0
+[MC] - Node: 3, query: 61, result: 69.576736, time: 0.029207, pqs: 1322, pqs_stolen: 0
+[MC] - Node: 0, query: 60, result: 76.641518, time: 0.029540, pqs: 849, pqs_stolen: 0
+[MC] - Node: 3, query: 63, result: 67.609886, time: 0.016559, pqs: 831, pqs_stolen: 0
+[MC] - Node: 2, query: 62, result: 75.569641, time: 0.036491, pqs: 1393, pqs_stolen: 0
+[MC] - Node: 1, query: 61, result: 66.364212, time: 0.028792, pqs: 758, pqs_stolen: 0
+[MC] - Node: 1, query: 63, result: 67.457008, time: 0.017712, pqs: 844, pqs_stolen: 0
+[MC] - Node: 2, query: 65, result: 55.068848, time: 0.025684, pqs: 1890, pqs_stolen: 0
+[MC] - Node: 0, query: 62, result: 73.865646, time: 0.035619, pqs: 1321, pqs_stolen: 0
+[MC] - Node: 3, query: 64, result: 68.968887, time: 0.041036, pqs: 1426, pqs_stolen: 0
+[MC] - Node: 0, query: 65, result: 55.068848, time: 0.027348, pqs: 1685, pqs_stolen: 0
+[MC] - Node: 1, query: 64, result: 68.968887, time: 0.040636, pqs: 1208, pqs_stolen: 0
+[MC] - Node: 2, query: 66, result: 74.133789, time: 0.037112, pqs: 1380, pqs_stolen: 0
+[MC] - Node: 0, query: 66, result: 2.254477, time: 0.009066, pqs: 1224, pqs_stolen: 0
+[MC] - Node: 2, query: 68, result: 57.811050, time: 0.021207, pqs: 1387, pqs_stolen: 0
+[MC] - Node: 0, query: 68, result: 57.811050, time: 0.022573, pqs: 981, pqs_stolen: 0
+[MC] - Node: 3, query: 67, result: 69.473122, time: 0.061560, pqs: 1662, pqs_stolen: 0
+[MC] - Node: 2, query: 69, result: 65.147552, time: 0.026286, pqs: 1509, pqs_stolen: 0
+[MC] - Node: 0, query: 69, result: 65.147552, time: 0.027283, pqs: 1372, pqs_stolen: 0
+[MC] - Node: 1, query: 67, result: 71.263420, time: 0.065668, pqs: 1208, pqs_stolen: 0
+[MC] - Node: 3, query: 70, result: 73.273750, time: 0.042068, pqs: 1585, pqs_stolen: 0
+[MC] - Node: 2, query: 71, result: 37.970196, time: 0.033225, pqs: 1193, pqs_stolen: 0
+[MC] - Node: 1, query: 71, result: 37.970196, time: 0.026618, pqs: 446, pqs_stolen: 0
+[MC] - Node: 0, query: 70, result: 75.426231, time: 0.043435, pqs: 1332, pqs_stolen: 0
+[MC] - Node: 3, query: 72, result: 29.594860, time: 0.020076, pqs: 1673, pqs_stolen: 0
+[MC] - Node: 2, query: 73, result: 68.298485, time: 0.021017, pqs: 1422, pqs_stolen: 0
+[MC] - Node: 1, query: 72, result: 29.594860, time: 0.014175, pqs: 1870, pqs_stolen: 0
+[MC] - Node: 0, query: 73, result: 64.172256, time: 0.019642, pqs: 1289, pqs_stolen: 0
+[MC] - Node: 3, query: 74, result: 63.357964, time: 0.020971, pqs: 1337, pqs_stolen: 0
+[MC] - Node: 1, query: 74, result: 63.357964, time: 0.019507, pqs: 1213, pqs_stolen: 0
+[MC] - Node: 2, query: 75, result: 68.092583, time: 0.027060, pqs: 1612, pqs_stolen: 0
+[MC] - Node: 3, query: 76, result: 63.440857, time: 0.020652, pqs: 1733, pqs_stolen: 0
+[MC] - Node: 0, query: 75, result: 73.077354, time: 0.029973, pqs: 1440, pqs_stolen: 0
+[MC] - Node: 1, query: 76, result: 63.440857, time: 0.030457, pqs: 773, pqs_stolen: 0
+[MC] - Node: 2, query: 77, result: 70.649193, time: 0.028846, pqs: 1306, pqs_stolen: 0
+[MC] - Node: 3, query: 78, result: 63.204060, time: 0.034043, pqs: 1835, pqs_stolen: 0
+[MC] - Node: 0, query: 77, result: 70.649193, time: 0.027916, pqs: 1904, pqs_stolen: 0
+[MC] - Node: 2, query: 79, result: 3.398460, time: 0.027827, pqs: 1737, pqs_stolen: 0
+[MC] - Node: 0, query: 79, result: 3.398460, time: 0.011415, pqs: 1624, pqs_stolen: 0
+[MC] - Node: 1, query: 78, result: 65.781906, time: 0.037879, pqs: 1427, pqs_stolen: 0
+[MC] - Node: 2, query: 81, result: 68.364365, time: 0.031296, pqs: 1662, pqs_stolen: 0
+[MC] - Node: 3, query: 80, result: 64.635147, time: 0.051561, pqs: 1988, pqs_stolen: 0
+[MC] - Node: 1, query: 81, result: 71.015404, time: 0.036529, pqs: 1602, pqs_stolen: 0
+[MC] - Node: 2, query: 82, result: 64.707726, time: 0.018256, pqs: 1372, pqs_stolen: 0
+[MC] - Node: 0, query: 80, result: 64.635147, time: 0.050901, pqs: 1938, pqs_stolen: 0
+[MC] - Node: 1, query: 82, result: 63.530724, time: 0.017890, pqs: 1449, pqs_stolen: 0
+[MC] - Node: 3, query: 83, result: 60.747990, time: 0.023766, pqs: 1388, pqs_stolen: 0
+[MC] - Node: 2, query: 84, result: 59.637337, time: 0.019241, pqs: 1352, pqs_stolen: 0
+[MC] - Node: 0, query: 83, result: 60.747990, time: 0.023462, pqs: 1614, pqs_stolen: 0
+[MC] - Node: 3, query: 85, result: 55.466026, time: 0.017431, pqs: 1634, pqs_stolen: 0
+[MC] - Node: 1, query: 84, result: 59.637337, time: 0.020220, pqs: 1210, pqs_stolen: 0
+[MC] - Node: 0, query: 85, result: 55.466026, time: 0.015552, pqs: 1734, pqs_stolen: 0
+[MC] - Node: 2, query: 86, result: 64.488876, time: 0.031558, pqs: 1805, pqs_stolen: 0
+[MC] - Node: 3, query: 87, result: 65.071487, time: 0.020726, pqs: 1683, pqs_stolen: 0
+[MC] - Node: 1, query: 86, result: 67.713852, time: 0.024872, pqs: 1703, pqs_stolen: 0
+[MC] - Node: 0, query: 87, result: 65.071487, time: 0.020469, pqs: 1394, pqs_stolen: 0
+[MC] - Node: 2, query: 88, result: 66.379372, time: 0.023077, pqs: 1568, pqs_stolen: 0
+[MC] - Node: 1, query: 88, result: 66.379372, time: 0.020766, pqs: 1106, pqs_stolen: 0
+[MC] - Node: 0, query: 89, result: 64.619431, time: 0.025838, pqs: 2261, pqs_stolen: 0
+[MC] - Node: 3, query: 89, result: 64.619431, time: 0.034521, pqs: 2243, pqs_stolen: 0
+[MC] - Node: 2, query: 90, result: 63.321999, time: 0.033320, pqs: 1834, pqs_stolen: 0
+[MC] - Node: 0, query: 91, result: 61.980892, time: 0.023101, pqs: 1306, pqs_stolen: 0
+[MC] - Node: 3, query: 91, result: 61.980892, time: 0.023281, pqs: 1600, pqs_stolen: 0
+[MC] - Node: 1, query: 90, result: 63.321999, time: 0.034566, pqs: 1365, pqs_stolen: 0
+[MC] - Node: 2, query: 92, result: 55.823967, time: 0.012859, pqs: 1221, pqs_stolen: 0
+[MC] - Node: 0, query: 92, result: 55.823967, time: 0.012559, pqs: 1320, pqs_stolen: 0
+[MC] - Node: 3, query: 93, result: 53.086399, time: 0.015127, pqs: 1846, pqs_stolen: 0
+[MC] - Node: 1, query: 93, result: 53.086399, time: 0.016779, pqs: 1424, pqs_stolen: 0
+[MC] - Node: 3, query: 95, result: 62.607738, time: 0.017541, pqs: 1303, pqs_stolen: 0
+[MC] - Node: 2, query: 94, result: 59.690613, time: 0.027507, pqs: 1882, pqs_stolen: 0
+[MC] - Node: 1, query: 95, result: 62.607738, time: 0.018705, pqs: 2267, pqs_stolen: 0
+[MC] - Node: 0, query: 94, result: 59.690613, time: 0.029911, pqs: 1634, pqs_stolen: 0
+[MC] - Node: 3, query: 96, result: 62.062084, time: 0.018266, pqs: 1421, pqs_stolen: 0
+[MC] - Node: 1, query: 96, result: 62.062084, time: 0.019122, pqs: 1099, pqs_stolen: 0
+[MC] - Node: 2, query: 97, result: 56.639786, time: 0.023228, pqs: 1773, pqs_stolen: 0
+[MC] - Node: 0, query: 97, result: 56.639786, time: 0.022981, pqs: 1548, pqs_stolen: 0
+[MC] - Node: 3, query: 98, result: 52.122623, time: 0.015421, pqs: 1581, pqs_stolen: 0
+[MC] - Node: 1, query: 98, result: 52.122623, time: 0.015324, pqs: 1322, pqs_stolen: 0
+[MC] - Node: 3, query: 100, result: 58.377655, time: 0.017710, pqs: 1472, pqs_stolen: 0
+[MC] - Node: 1, query: 100, result: 58.377655, time: 0.017825, pqs: 1220, pqs_stolen: 0
+[MC] - Node: 2, query: 99, result: 52.374413, time: 0.029619, pqs: 2662, pqs_stolen: 0
+[MC] - Node: 0, query: 99, result: 52.374413, time: 0.028617, pqs: 2650, pqs_stolen: 0
+[MC] - Node: 3, query: 101, result: 40.874176, time: 0.021011, pqs: 1555, pqs_stolen: 0
+[MC] - Node: 1, query: 101, result: 40.874176, time: 0.018772, pqs: 1602, pqs_stolen: 0
+[MC] - Node: 2, query: 102, result: 57.346142, time: 0.022036, pqs: 1860, pqs_stolen: 0
+[MC] - Node: 0, query: 102, result: 57.346142, time: 0.023172, pqs: 1894, pqs_stolen: 0
+[MC] - Node: 3, query: 103, result: 54.993080, time: 0.020422, pqs: 1771, pqs_stolen: 0
+[MC] - Node: 1, query: 103, result: 54.993080, time: 0.021471, pqs: 1675, pqs_stolen: 0
+[MC] - Node: 2, query: 104, result: 55.007210, time: 0.025438, pqs: 1868, pqs_stolen: 0
+[MC] - Node: 3, query: 105, result: 59.770485, time: 0.018706, pqs: 1119, pqs_stolen: 0
+[MC] - Node: 0, query: 104, result: 55.007210, time: 0.028453, pqs: 2298, pqs_stolen: 0
+[MC] - Node: 1, query: 105, result: 59.770485, time: 0.017724, pqs: 1250, pqs_stolen: 0
+[MC] - Node: 2, query: 106, result: 53.034588, time: 0.018983, pqs: 1285, pqs_stolen: 0
+[MC] - Node: 3, query: 107, result: 29.832640, time: 0.018182, pqs: 2058, pqs_stolen: 0
+[MC] - Node: 0, query: 106, result: 53.034588, time: 0.018200, pqs: 1378, pqs_stolen: 0
+[MC] - Node: 1, query: 107, result: 29.832640, time: 0.019169, pqs: 2381, pqs_stolen: 0
+[MC] - Node: 2, query: 108, result: 49.649620, time: 0.016600, pqs: 1309, pqs_stolen: 0
+[MC] - Node: 3, query: 109, result: 54.367138, time: 0.020642, pqs: 1497, pqs_stolen: 0
+[MC] - Node: 2, query: 110, result: 48.523270, time: 0.011607, pqs: 1393, pqs_stolen: 0
+[MC] - Node: 1, query: 109, result: 54.367138, time: 0.022305, pqs: 1844, pqs_stolen: 0
+[MC] - Node: 0, query: 108, result: 49.649620, time: 0.028243, pqs: 1135, pqs_stolen: 0
+[MC] - Node: 1, query: 110, result: 48.523270, time: 0.011259, pqs: 617, pqs_stolen: 0
+[MC] - Node: 3, query: 111, result: 31.837858, time: 0.025733, pqs: 1802, pqs_stolen: 0
+[MC] - Node: 0, query: 111, result: 31.837858, time: 0.019083, pqs: 1826, pqs_stolen: 0
+[MC] - Node: 3, query: 113, result: 56.290760, time: 0.015669, pqs: 1654, pqs_stolen: 0
+[MC] - Node: 0, query: 113, result: 56.290760, time: 0.017632, pqs: 1102, pqs_stolen: 0
+[MC] - Node: 3, query: 114, result: 36.883930, time: 0.012801, pqs: 1682, pqs_stolen: 0
+[MC] - Node: 0, query: 114, result: 36.883930, time: 0.013076, pqs: 2622, pqs_stolen: 0
+[MC] - Node: 2, query: 112, result: 56.722473, time: 0.066220, pqs: 1150, pqs_stolen: 0
+[MC] - Node: 3, query: 115, result: 49.848747, time: 0.024686, pqs: 1807, pqs_stolen: 0
+[MC] - Node: 1, query: 112, result: 56.722473, time: 0.063045, pqs: 10013, pqs_stolen: 0
+[MC] - Node: 0, query: 115, result: 49.848747, time: 0.026578, pqs: 1916, pqs_stolen: 0
+[MC] - Node: 3, query: 117, result: 45.408737, time: 0.018563, pqs: 2200, pqs_stolen: 0
+[MC] - Node: 2, query: 116, result: 55.399853, time: 0.030403, pqs: 1974, pqs_stolen: 0
+[MC] - Node: 0, query: 117, result: 45.408737, time: 0.017657, pqs: 1738, pqs_stolen: 0
+[MC] - Node: 3, query: 118, result: 50.129875, time: 0.014082, pqs: 1257, pqs_stolen: 0
+[MC] - Node: 1, query: 116, result: 55.399853, time: 0.030505, pqs: 2066, pqs_stolen: 0
+[MC] - Node: 0, query: 118, result: 50.129875, time: 0.013936, pqs: 1378, pqs_stolen: 0
+[MC] - Node: 2, query: 119, result: 38.833076, time: 0.026444, pqs: 1475, pqs_stolen: 0
+[MC] - Node: 1, query: 119, result: 38.833076, time: 0.021526, pqs: 1613, pqs_stolen: 0
+[MC] - Node: 3, query: 120, result: 49.544453, time: 0.029147, pqs: 3421, pqs_stolen: 0
+[MC] - Node: 0, query: 120, result: 49.544453, time: 0.032412, pqs: 4098, pqs_stolen: 0
+[MC] - Node: 2, query: 121, result: 35.321987, time: 0.028316, pqs: 1482, pqs_stolen: 0
+[MC] - Node: 1, query: 121, result: 35.321987, time: 0.024780, pqs: 1552, pqs_stolen: 0
+[MC] - Node: 3, query: 122, result: 48.791458, time: 0.037379, pqs: 1992, pqs_stolen: 0
+[MC] - Node: 0, query: 122, result: 48.791458, time: 0.035459, pqs: 1770, pqs_stolen: 0
+[MC] - Node: 2, query: 123, result: 53.405529, time: 0.037904, pqs: 1133, pqs_stolen: 0
+[MC] - Node: 1, query: 123, result: 53.405529, time: 0.039131, pqs: 6547, pqs_stolen: 0
+[MC] - Node: 3, query: 124, result: 48.300491, time: 0.026362, pqs: 1562, pqs_stolen: 0
+[MC] - Node: 2, query: 125, result: 52.363354, time: 0.017395, pqs: 1382, pqs_stolen: 0
+[MC] - Node: 0, query: 124, result: 48.300491, time: 0.026715, pqs: 1379, pqs_stolen: 0
+[MC] - Node: 1, query: 125, result: 52.363354, time: 0.018055, pqs: 1635, pqs_stolen: 0
+[MC] - Node: 3, query: 126, result: 47.658997, time: 0.019492, pqs: 1946, pqs_stolen: 0
+[MC] - Node: 2, query: 127, result: 48.087532, time: 0.018006, pqs: 1510, pqs_stolen: 0
+[MC] - Node: 0, query: 126, result: 47.658997, time: 0.020030, pqs: 1760, pqs_stolen: 0
+[MC] - Node: 3, query: 128, result: 39.316757, time: 0.008997, pqs: 832, pqs_stolen: 0
+[MC] - Node: 1, query: 127, result: 48.087532, time: 0.022146, pqs: 1428, pqs_stolen: 0
+[MC] - Node: 0, query: 128, result: 39.316757, time: 0.007960, pqs: 1099, pqs_stolen: 0
+[MC] - Node: 2, query: 129, result: 51.019081, time: 0.025523, pqs: 3774, pqs_stolen: 0
+[MC] - Node: 3, query: 130, result: 46.471931, time: 0.025654, pqs: 3114, pqs_stolen: 0
+[MC] - Node: 1, query: 129, result: 51.544724, time: 0.024905, pqs: 3169, pqs_stolen: 0
+[MC] - Node: 0, query: 130, result: 46.471931, time: 0.027562, pqs: 1627, pqs_stolen: 0
+[MC] - Node: 2, query: 131, result: 47.541550, time: 0.015300, pqs: 1842, pqs_stolen: 0
+[MC] - Node: 1, query: 131, result: 47.325161, time: 0.015856, pqs: 1737, pqs_stolen: 0
+[MC] - Node: 2, query: 133, result: 37.440750, time: 0.032799, pqs: 1395, pqs_stolen: 0
+[MC] - Node: 3, query: 132, result: 40.541882, time: 0.050285, pqs: 1626, pqs_stolen: 0
+[MC] - Node: 0, query: 132, result: 40.541882, time: 0.044549, pqs: 1717, pqs_stolen: 0
+[MC] - Node: 1, query: 133, result: 37.440750, time: 0.038019, pqs: 1434, pqs_stolen: 0
+[MC] - Node: 3, query: 135, result: 39.068008, time: 0.013843, pqs: 1751, pqs_stolen: 0
+[MC] - Node: 2, query: 134, result: 48.091305, time: 0.024305, pqs: 1566, pqs_stolen: 0
+[MC] - Node: 1, query: 135, result: 39.068008, time: 0.015551, pqs: 1301, pqs_stolen: 0
+[MC] - Node: 0, query: 134, result: 48.091305, time: 0.020984, pqs: 1604, pqs_stolen: 0
+[MC] - Node: 2, query: 137, result: 39.331974, time: 0.009145, pqs: 895, pqs_stolen: 0
+[MC] - Node: 3, query: 136, result: 37.841858, time: 0.015640, pqs: 1665, pqs_stolen: 0
+[MC] - Node: 0, query: 137, result: 38.629711, time: 0.009036, pqs: 737, pqs_stolen: 0
+[MC] - Node: 2, query: 138, result: 32.500881, time: 0.010153, pqs: 951, pqs_stolen: 0
+[MC] - Node: 3, query: 139, result: 7.396423, time: 0.005715, pqs: 83, pqs_stolen: 0
+[MC] - Node: 1, query: 136, result: 37.841858, time: 0.016741, pqs: 1335, pqs_stolen: 0
+[MC] - Node: 0, query: 138, result: 32.500881, time: 0.009833, pqs: 1006, pqs_stolen: 0
+[MC] - Node: 1, query: 139, result: 7.708936, time: 0.005895, pqs: 107, pqs_stolen: 0
+[MC] - Node: 2, query: 140, result: 22.404102, time: 0.010216, pqs: 896, pqs_stolen: 0
+[MC] - Node: 3, query: 141, result: 31.759600, time: 0.016511, pqs: 1562, pqs_stolen: 0
+[MC] - Node: 0, query: 140, result: 22.699718, time: 0.010956, pqs: 870, pqs_stolen: 0
+[MC] - Node: 1, query: 141, result: 32.632080, time: 0.016418, pqs: 1604, pqs_stolen: 0
+[MC] - Node: 2, query: 142, result: 35.743687, time: 0.018338, pqs: 1205, pqs_stolen: 0
+[MC] - Node: 2, query: 144, result: 14.078876, time: 0.007846, pqs: 369, pqs_stolen: 0
+[MC] - Node: 0, query: 142, result: 35.743687, time: 0.020245, pqs: 1268, pqs_stolen: 0
+[MC] - Node: 3, query: 143, result: 34.035652, time: 0.024574, pqs: 1235, pqs_stolen: 0
+[MC] - Node: 0, query: 144, result: 14.078876, time: 0.007917, pqs: 408, pqs_stolen: 0
+[MC] - Node: 2, query: 145, result: 32.938530, time: 0.010706, pqs: 802, pqs_stolen: 0
+[MC] - Node: 1, query: 143, result: 34.035652, time: 0.023045, pqs: 1342, pqs_stolen: 0
+[MC] - Node: 3, query: 146, result: 39.535229, time: 0.008697, pqs: 851, pqs_stolen: 0
+[MC] - Node: 1, query: 146, result: 39.535229, time: 0.009147, pqs: 761, pqs_stolen: 0
+[MC] - Node: 0, query: 145, result: 31.474785, time: 0.010929, pqs: 850, pqs_stolen: 0
+[MC] - Node: 2, query: 147, result: 27.698078, time: 0.011495, pqs: 775, pqs_stolen: 0
+[MC] - Node: 3, query: 148, result: 21.983553, time: 0.011004, pqs: 594, pqs_stolen: 0
+[MC] - Node: 2, query: 149, result: 25.816523, time: 0.006516, pqs: 489, pqs_stolen: 0
+[MC] - Node: 0, query: 148, result: 21.756350, time: 0.010643, pqs: 563, pqs_stolen: 0
+[MC] - Node: 1, query: 147, result: 26.867067, time: 0.012470, pqs: 999, pqs_stolen: 0
+[MC] - Node: 0, query: 149, result: 21.530951, time: 0.006062, pqs: 719, pqs_stolen: 0
+[MC] - Node: 2, query: 151, result: 37.970463, time: 0.011347, pqs: 1695, pqs_stolen: 0
+[MC] - Node: 3, query: 150, result: 35.257347, time: 0.020456, pqs: 2710, pqs_stolen: 0
+[MC] - Node: 0, query: 151, result: 37.970463, time: 0.010995, pqs: 841, pqs_stolen: 0
+[MC] - Node: 1, query: 150, result: 37.145290, time: 0.021083, pqs: 2395, pqs_stolen: 0
+[MC] - Node: 2, query: 152, result: 43.461464, time: 0.017647, pqs: 1274, pqs_stolen: 0
+[MC] - Node: 0, query: 152, result: 43.461464, time: 0.017685, pqs: 1001, pqs_stolen: 0
+[MC] - Node: 3, query: 153, result: 45.142975, time: 0.028657, pqs: 7102, pqs_stolen: 0
+[MC] - Node: 1, query: 153, result: 45.142975, time: 0.024258, pqs: 2423, pqs_stolen: 0
+[MC] - Node: 2, query: 154, result: 38.227802, time: 0.023191, pqs: 925, pqs_stolen: 0
+[MC] - Node: 3, query: 155, result: 33.694782, time: 0.010726, pqs: 1298, pqs_stolen: 0
+[MC] - Node: 0, query: 154, result: 38.227802, time: 0.022801, pqs: 953, pqs_stolen: 0
+[MC] - Node: 1, query: 155, result: 33.634880, time: 0.010729, pqs: 1277, pqs_stolen: 0
+[MC] - Node: 2, query: 156, result: 18.200603, time: 0.009056, pqs: 343, pqs_stolen: 0
+[MC] - Node: 2, query: 158, result: 19.361544, time: 0.007058, pqs: 408, pqs_stolen: 0
+[MC] - Node: 3, query: 157, result: 39.984997, time: 0.013750, pqs: 1332, pqs_stolen: 0
+[MC] - Node: 0, query: 156, result: 18.121124, time: 0.014641, pqs: 464, pqs_stolen: 0
+[MC] - Node: 1, query: 157, result: 39.984997, time: 0.015160, pqs: 441, pqs_stolen: 0
+[MC] - Node: 3, query: 160, result: 39.765339, time: 0.008960, pqs: 862, pqs_stolen: 0
+[MC] - Node: 0, query: 158, result: 17.361347, time: 0.008030, pqs: 431, pqs_stolen: 0
+[MC] - Node: 2, query: 159, result: 27.293577, time: 0.017447, pqs: 1172, pqs_stolen: 0
+[MC] - Node: 0, query: 160, result: 39.765339, time: 0.010160, pqs: 771, pqs_stolen: 0
+[MC] - Node: 1, query: 159, result: 27.293577, time: 0.018625, pqs: 1317, pqs_stolen: 0
+[MC] - Node: 3, query: 161, result: 39.240166, time: 0.017968, pqs: 4240, pqs_stolen: 0
+[MC] - Node: 3, query: 163, result: 30.893175, time: 0.006621, pqs: 817, pqs_stolen: 0
+[MC] - Node: 3, query: 164, result: 2.456396, time: 0.005506, pqs: 88, pqs_stolen: 0
+[MC] - Node: 2, query: 162, result: 44.423679, time: 0.026273, pqs: 1817, pqs_stolen: 0
+[MC] - Node: 0, query: 161, result: 40.345383, time: 0.019680, pqs: 4360, pqs_stolen: 0
+[MC] - Node: 0, query: 163, result: 30.893175, time: 0.006501, pqs: 412, pqs_stolen: 0
+[MC] - Node: 3, query: 165, result: 43.736153, time: 0.012218, pqs: 1377, pqs_stolen: 0
+[MC] - Node: 1, query: 162, result: 44.423679, time: 0.028490, pqs: 2322, pqs_stolen: 0
+[MC] - Node: 0, query: 164, result: 2.738062, time: 0.005317, pqs: 101, pqs_stolen: 0
+[MC] - Node: 2, query: 166, result: 29.176275, time: 0.014869, pqs: 1631, pqs_stolen: 0
+[MC] - Node: 1, query: 165, result: 49.204014, time: 0.012664, pqs: 996, pqs_stolen: 0
+[MC] - Node: 3, query: 167, result: 26.131281, time: 0.017102, pqs: 2653, pqs_stolen: 0
+[MC] - Node: 0, query: 166, result: 27.939026, time: 0.015680, pqs: 1555, pqs_stolen: 0
+[MC] - Node: 3, query: 169, result: 29.470987, time: 0.006841, pqs: 304, pqs_stolen: 0
+[MC] - Node: 3, query: 170, result: 28.615744, time: 0.006463, pqs: 978, pqs_stolen: 0
+[MC] - Node: 2, query: 168, result: 22.612827, time: 0.024247, pqs: 834, pqs_stolen: 0
+[MC] - Node: 1, query: 167, result: 29.435120, time: 0.018315, pqs: 1741, pqs_stolen: 0
+[MC] - Node: 2, query: 171, result: 16.098270, time: 0.007646, pqs: 275, pqs_stolen: 0
+[MC] - Node: 1, query: 169, result: 34.022579, time: 0.007189, pqs: 359, pqs_stolen: 0
+[MC] - Node: 3, query: 172, result: 29.952951, time: 0.012784, pqs: 2215, pqs_stolen: 0
+[MC] - Node: 0, query: 168, result: 22.612827, time: 0.023552, pqs: 871, pqs_stolen: 0
+[MC] - Node: 2, query: 173, result: 16.914639, time: 0.008290, pqs: 917, pqs_stolen: 0
+[MC] - Node: 1, query: 170, result: 31.382929, time: 0.006236, pqs: 723, pqs_stolen: 0
+[MC] - Node: 0, query: 171, result: 16.304123, time: 0.007453, pqs: 282, pqs_stolen: 0
+[MC] - Node: 3, query: 174, result: 29.211643, time: 0.010276, pqs: 1233, pqs_stolen: 0
+[MC] - Node: 2, query: 175, result: 21.170929, time: 0.008336, pqs: 640, pqs_stolen: 0
+[MC] - Node: 1, query: 172, result: 27.188898, time: 0.011325, pqs: 1667, pqs_stolen: 0
+[MC] - Node: 0, query: 173, result: 16.914639, time: 0.008268, pqs: 549, pqs_stolen: 0
+[MC] - Node: 3, query: 176, result: 29.387537, time: 0.006824, pqs: 435, pqs_stolen: 0
+[MC] - Node: 0, query: 175, result: 21.170929, time: 0.008423, pqs: 633, pqs_stolen: 0
+[MC] - Node: 1, query: 174, result: 32.666031, time: 0.012489, pqs: 1507, pqs_stolen: 0
+[MC] - Node: 0, query: 176, result: 31.741508, time: 0.006405, pqs: 525, pqs_stolen: 0
+[MC] - Node: 2, query: 177, result: 44.814342, time: 0.040108, pqs: 1071, pqs_stolen: 0
+[MC] - Node: 0, query: 178, result: 34.215866, time: 0.021464, pqs: 1551, pqs_stolen: 0
+[MC] - Node: 3, query: 178, result: 34.215866, time: 0.035584, pqs: 1421, pqs_stolen: 0
+[MC] - Node: 1, query: 177, result: 44.814342, time: 0.027768, pqs: 5055, pqs_stolen: 0
+[MC] - Node: 0, query: 179, result: 25.539431, time: 0.015124, pqs: 2856, pqs_stolen: 0
+[MC] - Node: 2, query: 179, result: 25.539431, time: 0.018104, pqs: 1135, pqs_stolen: 0
+[MC] - Node: 3, query: 180, result: 23.628355, time: 0.026089, pqs: 1135, pqs_stolen: 0
+[MC] - Node: 1, query: 180, result: 23.628355, time: 0.022460, pqs: 3246, pqs_stolen: 0
+[MC] - Node: 1, query: 182, result: 7.425709, time: 0.017376, pqs: 4527, pqs_stolen: 0
+[MC] - Node: 3, query: 182, result: 7.425709, time: 0.019833, pqs: 204, pqs_stolen: 0
+[MC] - Node: 2, query: 181, result: 14.318028, time: 0.037362, pqs: 647, pqs_stolen: 0
+[MC] - Node: 0, query: 181, result: 14.318028, time: 0.041397, pqs: 16144, pqs_stolen: 0
+[MC] - Node: 1, query: 183, result: 6.344642, time: 0.015307, pqs: 2692, pqs_stolen: 0
+[MC] - Node: 3, query: 183, result: 6.344642, time: 0.013847, pqs: 124, pqs_stolen: 0
+[MC] - Node: 0, query: 184, result: 5.575923, time: 0.006753, pqs: 661, pqs_stolen: 0
+[MC] - Node: 2, query: 184, result: 5.575923, time: 0.010793, pqs: 1124, pqs_stolen: 0
+[MC] - Node: 0, query: 186, result: 4.293581, time: 0.023160, pqs: 1229, pqs_stolen: 0
+[MC] - Node: 2, query: 186, result: 4.293581, time: 0.021071, pqs: 1250, pqs_stolen: 0
+[MC] - Node: 3, query: 185, result: 5.173545, time: 0.026443, pqs: 941, pqs_stolen: 0
+[MC] - Node: 1, query: 185, result: 5.173545, time: 0.028462, pqs: 960, pqs_stolen: 0
+[MC] - Node: 0, query: 187, result: 2.959481, time: 0.004920, pqs: 30, pqs_stolen: 0
+[MC] - Node: 1, query: 188, result: 2.568665, time: 0.005651, pqs: 27, pqs_stolen: 0
+[MC] - Node: 2, query: 187, result: 2.959481, time: 0.007670, pqs: 1216, pqs_stolen: 0
+[MC] - Node: 3, query: 188, result: 2.568665, time: 0.008170, pqs: 6, pqs_stolen: 0
+[MC] - Node: 0, query: 189, result: 1.924398, time: 0.004665, pqs: 27, pqs_stolen: 0
+[MC] - Node: 1, query: 190, result: 1.613665, time: 0.004550, pqs: 9, pqs_stolen: 0
+[MC] - Node: 0, query: 191, result: 1.072678, time: 0.004469, pqs: 16, pqs_stolen: 0
+[MC] - Node: 1, query: 192, result: 0.841052, time: 0.003926, pqs: 9, pqs_stolen: 0
+[MC] - Node: 2, query: 189, result: 1.924398, time: 0.007603, pqs: 6, pqs_stolen: 0
+[MC] - Node: 3, query: 190, result: 1.613665, time: 0.007507, pqs: 5, pqs_stolen: 0
+[MC] - Node: 0, query: 193, result: 0.648074, time: 0.003993, pqs: 8, pqs_stolen: 0
+[MC] - Node: 1, query: 194, result: 0.476570, time: 0.004530, pqs: 9, pqs_stolen: 0
+[MC] - Node: 3, query: 192, result: 0.841052, time: 0.004901, pqs: 4, pqs_stolen: 0
+[MC] - Node: 0, query: 195, result: 0.333485, time: 0.004115, pqs: 5, pqs_stolen: 0
+[MC] - Node: 1, query: 196, result: 0.210577, time: 0.003991, pqs: 4, pqs_stolen: 0
+[MC] - Node: 0, query: 197, result: 0.119847, time: 0.003795, pqs: 2, pqs_stolen: 0
+[MC] - Node: 1, query: 198, result: 0.053226, time: 0.003912, pqs: 1, pqs_stolen: 0
+[MC] - Node: 0, query: 199, result: 0.013250, time: 0.004041, pqs: 1, pqs_stolen: 0
+[MC] - Node: 1, query: 200, result: 0.000000, time: 0.003851, pqs: 1, pqs_stolen: 0
+[MC] - Node: 2, query: 191, result: 73.391945, time: 0.016996, pqs: 49, pqs_stolen: 0
+[MC] - Node: 3, query: 193, result: 128.407257, time: 0.073612, pqs: 852, pqs_stolen: 0
+[MC] - Node: 3, query: 195, result: 0.333485, time: 0.004854, pqs: 3, pqs_stolen: 0
+[MC] - Node: 3, query: 196, result: 0.210577, time: 0.005067, pqs: 2, pqs_stolen: 0
+[MC] - Node: 3, query: 197, result: 0.119847, time: 0.004483, pqs: 2, pqs_stolen: 0
+[MC] - Node: 3, query: 198, result: 0.053226, time: 0.005035, pqs: 1, pqs_stolen: 0
+[MC] - Node: 3, query: 199, result: 0.013250, time: 0.004051, pqs: 1, pqs_stolen: 0
+[MC] - Node: 3, query: 200, result: 0.000000, time: 0.004822, pqs: 1, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003744, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003565, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003525, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003593, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003558, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003590, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003582, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003634, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003539, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003643, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003568, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003605, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003683, pqs: 0, pqs_stolen: 0
+[MC] - Node: 3, query: 194, result: 0.476570, time: 0.003860, pqs: 3, pqs_stolen: 0
+[MC] - Node: 2, query: 194, result: 192.819702, time: 0.178613, pqs: 974, pqs_stolen: 760
+Query [0] -> min distance: [270.837830]
+Query [1] -> min distance: [27.888966]
+Query [2] -> min distance: [86.504776]
+Query [3] -> min distance: [86.361519]
+Query [4] -> min distance: [86.068436]
+Query [5] -> min distance: [79.310028]
+Query [6] -> min distance: [85.228210]
+Query [7] -> min distance: [88.782333]
+Query [8] -> min distance: [90.403107]
+Query [9] -> min distance: [29.634478]
+Query [10] -> min distance: [84.813583]
+Query [11] -> min distance: [83.789047]
+Query [12] -> min distance: [91.369568]
+Query [13] -> min distance: [89.303795]
+Query [14] -> min distance: [83.108414]
+Query [15] -> min distance: [83.152496]
+Query [16] -> min distance: [77.146782]
+Query [17] -> min distance: [82.767532]
+Query [18] -> min distance: [3.786863]
+Query [19] -> min distance: [87.191147]
+Query [20] -> min distance: [88.722656]
+Query [21] -> min distance: [71.450920]
+Query [22] -> min distance: [88.266075]
+Query [23] -> min distance: [85.986374]
+Query [24] -> min distance: [72.629082]
+Query [25] -> min distance: [71.290764]
+Query [26] -> min distance: [73.762123]
+Query [27] -> min distance: [85.939911]
+Query [28] -> min distance: [78.616913]
+Query [29] -> min distance: [76.023094]
+Query [30] -> min distance: [82.768234]
+Query [31] -> min distance: [80.602905]
+Query [32] -> min distance: [86.795052]
+Query [33] -> min distance: [4.698102]
+Query [34] -> min distance: [74.622124]
+Query [35] -> min distance: [43.379681]
+Query [36] -> min distance: [53.242203]
+Query [37] -> min distance: [77.639732]
+Query [38] -> min distance: [76.428864]
+Query [39] -> min distance: [79.822418]
+Query [40] -> min distance: [47.729271]
+Query [41] -> min distance: [83.559364]
+Query [42] -> min distance: [42.007385]
+Query [43] -> min distance: [80.417160]
+Query [44] -> min distance: [72.492203]
+Query [45] -> min distance: [79.405640]
+Query [46] -> min distance: [79.542046]
+Query [47] -> min distance: [79.957062]
+Query [48] -> min distance: [1.334871]
+Query [49] -> min distance: [79.316238]
+Query [50] -> min distance: [68.231300]
+Query [51] -> min distance: [54.248344]
+Query [52] -> min distance: [75.003433]
+Query [53] -> min distance: [75.506943]
+Query [54] -> min distance: [72.840012]
+Query [55] -> min distance: [69.317085]
+Query [56] -> min distance: [72.733337]
+Query [57] -> min distance: [64.101044]
+Query [58] -> min distance: [77.575867]
+Query [59] -> min distance: [73.359909]
+Query [60] -> min distance: [76.641518]
+Query [61] -> min distance: [66.364212]
+Query [62] -> min distance: [73.865646]
+Query [63] -> min distance: [67.457008]
+Query [64] -> min distance: [68.968887]
+Query [65] -> min distance: [55.068848]
+Query [66] -> min distance: [2.254477]
+Query [67] -> min distance: [69.473122]
+Query [68] -> min distance: [57.811050]
+Query [69] -> min distance: [65.147552]
+Query [70] -> min distance: [73.273750]
+Query [71] -> min distance: [37.970196]
+Query [72] -> min distance: [29.594860]
+Query [73] -> min distance: [64.172256]
+Query [74] -> min distance: [63.357964]
+Query [75] -> min distance: [68.092583]
+Query [76] -> min distance: [63.440857]
+Query [77] -> min distance: [70.649193]
+Query [78] -> min distance: [63.204060]
+Query [79] -> min distance: [3.398460]
+Query [80] -> min distance: [64.635147]
+Query [81] -> min distance: [68.364365]
+Query [82] -> min distance: [63.530724]
+Query [83] -> min distance: [60.747990]
+Query [84] -> min distance: [59.637337]
+Query [85] -> min distance: [55.466026]
+Query [86] -> min distance: [64.488876]
+Query [87] -> min distance: [65.071487]
+Query [88] -> min distance: [66.379372]
+Query [89] -> min distance: [64.619431]
+Query [90] -> min distance: [63.321999]
+Query [91] -> min distance: [61.980892]
+Query [92] -> min distance: [55.823967]
+Query [93] -> min distance: [53.086399]
+Query [94] -> min distance: [59.690613]
+Query [95] -> min distance: [62.607738]
+Query [96] -> min distance: [62.062084]
+Query [97] -> min distance: [56.639786]
+Query [98] -> min distance: [52.122623]
+Query [99] -> min distance: [52.374413]
+Query [100] -> min distance: [58.377655]
+Query [101] -> min distance: [40.874176]
+Query [102] -> min distance: [57.346142]
+Query [103] -> min distance: [54.993080]
+Query [104] -> min distance: [55.007210]
+Query [105] -> min distance: [59.770485]
+Query [106] -> min distance: [53.034588]
+Query [107] -> min distance: [29.832640]
+Query [108] -> min distance: [49.649620]
+Query [109] -> min distance: [54.367138]
+Query [110] -> min distance: [48.523270]
+Query [111] -> min distance: [31.837858]
+Query [112] -> min distance: [56.722473]
+Query [113] -> min distance: [56.290760]
+Query [114] -> min distance: [36.883930]
+Query [115] -> min distance: [49.848747]
+Query [116] -> min distance: [55.399853]
+Query [117] -> min distance: [45.408737]
+Query [118] -> min distance: [50.129875]
+Query [119] -> min distance: [38.833076]
+Query [120] -> min distance: [49.544453]
+Query [121] -> min distance: [35.321987]
+Query [122] -> min distance: [48.791458]
+Query [123] -> min distance: [53.405529]
+Query [124] -> min distance: [48.300491]
+Query [125] -> min distance: [52.363354]
+Query [126] -> min distance: [47.658997]
+Query [127] -> min distance: [48.087532]
+Query [128] -> min distance: [39.316757]
+Query [129] -> min distance: [51.019081]
+Query [130] -> min distance: [46.471931]
+Query [131] -> min distance: [47.325161]
+Query [132] -> min distance: [40.541882]
+Query [133] -> min distance: [37.440750]
+Query [134] -> min distance: [48.091305]
+Query [135] -> min distance: [39.068008]
+Query [136] -> min distance: [37.841858]
+Query [137] -> min distance: [38.629711]
+Query [138] -> min distance: [32.500881]
+Query [139] -> min distance: [7.396423]
+Query [140] -> min distance: [22.404102]
+Query [141] -> min distance: [31.759600]
+Query [142] -> min distance: [35.743687]
+Query [143] -> min distance: [34.035652]
+Query [144] -> min distance: [14.078876]
+Query [145] -> min distance: [31.474785]
+Query [146] -> min distance: [39.535229]
+Query [147] -> min distance: [26.867067]
+Query [148] -> min distance: [21.756350]
+Query [149] -> min distance: [21.530951]
+Query [150] -> min distance: [35.257347]
+Query [151] -> min distance: [37.970463]
+Query [152] -> min distance: [43.461464]
+Query [153] -> min distance: [45.142975]
+Query [154] -> min distance: [38.227802]
+Query [155] -> min distance: [33.634880]
+Query [156] -> min distance: [18.121124]
+Query [157] -> min distance: [39.984997]
+Query [158] -> min distance: [17.361347]
+Query [159] -> min distance: [27.293577]
+Query [160] -> min distance: [39.765339]
+Query [161] -> min distance: [39.240166]
+Query [162] -> min distance: [44.423679]
+Query [163] -> min distance: [30.893175]
+Query [164] -> min distance: [2.456396]
+Query [165] -> min distance: [43.736153]
+Query [166] -> min distance: [27.939026]
+Query [167] -> min distance: [26.131281]
+Query [168] -> min distance: [22.612827]
+Query [169] -> min distance: [29.470987]
+Query [170] -> min distance: [28.615744]
+Query [171] -> min distance: [16.098270]
+Query [172] -> min distance: [27.188898]
+Query [173] -> min distance: [16.914639]
+Query [174] -> min distance: [29.211643]
+Query [175] -> min distance: [21.170929]
+Query [176] -> min distance: [29.387537]
+Query [177] -> min distance: [44.814342]
+Query [178] -> min distance: [34.215866]
+Query [179] -> min distance: [25.539431]
+Query [180] -> min distance: [23.628355]
+Query [181] -> min distance: [14.318028]
+Query [182] -> min distance: [7.425709]
+Query [183] -> min distance: [6.344642]
+Query [184] -> min distance: [5.575923]
+Query [185] -> min distance: [5.173545]
+Query [186] -> min distance: [4.293581]
+Query [187] -> min distance: [2.959481]
+Query [188] -> min distance: [2.568665]
+Query [189] -> min distance: [1.924398]
+Query [190] -> min distance: [1.613665]
+Query [191] -> min distance: [1.072678]
+Query [192] -> min distance: [0.841052]
+Query [193] -> min distance: [0.648074]
+Query [194] -> min distance: [0.476570]
+Query [195] -> min distance: [0.333485]
+Query [196] -> min distance: [0.210577]
+Query [197] -> min distance: [0.119847]
+Query [198] -> min distance: [0.053226]
+Query [199] -> min distance: [0.013250]
+Query [200] -> min distance: [0.000000]
+Total min dists: 3869365221
+Total real dists: 219017129
+total_bsf_change_counter: 677
+total_bsf_share_counter: 912
+total_bsf_receives_counter: 2655
+total_bsf_receives_wrong_query_counter: 0
+================ MASTER NODE ENDING OUTPUT ================
+[nodes-4], [dataset-without-label], [queries-201]
+[0] Buf: 5.624426 Ind: 0.778449 QA: 3.334544 Comm: 0.021704 QueryPrePro: 0.000018 WorkStealing: 0.000575 PQ Fill: 0.404601 PQPrePro: 0.050175 PQProc: 2.536712 
+[1] Buf: 5.532879 Ind: 0.770207 QA: 3.324276 Comm: 0.053826 QueryPrePro: 0.000018 WorkStealing: 0.000003 PQ Fill: 0.236710 PQPrePro: 0.035304 PQProc: 2.787039 
+[2] Buf: 5.719049 Ind: 0.820038 QA: 3.514114 Comm: 0.018145 QueryPrePro: 0.000019 WorkStealing: 0.000005 PQ Fill: 0.389180 PQPrePro: 0.045689 PQProc: 2.741978 
+[3] Buf: 5.744780 Ind: 0.724924 QA: 3.515077 Comm: 0.106719 QueryPrePro: 0.000018 WorkStealing: 0.088203 PQ Fill: 0.280266 PQPrePro: 0.036614 PQProc: 2.845351 
+opening file : seismic_pdr_distributed_queries_benchmark201/seismic/pdr_dq/dynamic_module_sorted_ws/node4/groups2/bsf_share1/threads16-64/run2.txt
+===========================================================
