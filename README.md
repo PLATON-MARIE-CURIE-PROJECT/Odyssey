@@ -1,9 +1,8 @@
 # Odyssey 
-Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Series Similarity Search", Manos Chatzakis, Panagiota Fatourou, Eleftherios Kosmas, Themis Palpanas, Botao Peng. Under review, VLDB 2022
+Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Series Similarity Search", Manos Chatzakis, Panagiota Fatourou, Eleftherios Kosmas, Themis Palpanas, Botao Peng. Revisions, VLDB 2022
 
 ## Roadmap
 * [General]()
-* [How to run]()
 * [Compilation]()
 * [Documentation]()
 * [Data Generators]()
@@ -14,17 +13,6 @@ Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Ser
 
 ## General
 Odyssey is a modular distributed similarity search framework, appropriate for distributed query answering for big data series collections. It is implemented in C, using MPI. 
-
-## How to run
-### Packages
-Odyssey is a distributed framework, running over MPI Library for Linux* OS, Version 2021.2.
-
-### Environment
-Odyssey is developed, configured and run under a cluster of 16 SR645 nodes, connected through an HDR 100 Infiniband network. Each
-node has 128 cores (with no hyper-threading support), 256GB RAM, and runs Red Hat Enterprise Linux release 8.2. 
-
-The cluster supports SLURM scripting, thus the rest of the documentation is based on SLURM scripting utilization.
-
 
 ## Compilation
 To compile the program from scratch, use
@@ -67,81 +55,6 @@ mpirun ../bin/ads   --dataset [<string>]
                     --preprocess [<int> (0 or 1)]
 ```
 
-### SLURM Example
-The program input is the system is given using SLURM scripting. An example slurm script is presented below:
-```sh
-#!/bin/bash
-#SBATCH --job-name pdr
-#SBATCH --output pdr-%j.out
-#SBATCH --nodes=2
-#SBATCH --ntasks-per-node=1
-#SBATCH --ntasks=2
-#SBATCH --exclusive
-#SBATCH --mem=240000MB
-
-module purge
-module load intel/21U2/suite
-module list
-
-mpirun ../bin/ads   --dataset /gpfs/scratch/chatzakis/data_size100M_seismic_len256_znorm.bin --dataset-size 100000000 
-                    --function-type 9990 --in-memory --queries /gpfs/scratch/chatzakis/benchmark2_seismic_len256_znorm.bin --queries-size 2 
-                    --timeseries-size 256 --index-workers 16 --query-workers 64 --query-mode 22 
-                    --basis-function-filename /gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/pq_analysis/estimations_parameters/seismic_100classic_sigmoid.txt 
-                    --th-div-factor 16 --workstealing 0 --node-groups 1
-```
-
-### Cloning from Github to S-CAPAD
-To clone the project, git ssh should be used (http cloning is not working). To clone to S-CAPAD, you need to configure the known machines from your github profile
-
-### Configuring MPI known hosts
-To configure and use MPI for a cluster of machines you must configure the known hosts (https://www.open-mpi.org/faq/?category=rsh)
-```sh
-ssh-keygen -t rsa
-cd $HOME/.ssh
-cp id_rsa.pub authorized_keys
-eval 'ssh-agent'
-ssh-add $HOME/.ssh/id_rsa
-```
-Do not change the file location and dont use passphrase.
-Then, you can run MPI programs.
-You can use the id_rsa.pub file key to create ssh keys on github and clone your projects.
-
-### Installing je-malloc
-You may want to use Odyssey with custom malloc libraries for better performance. An available library is jemalloc:
-```sh
-wget https://github.com/jemalloc/jemalloc/releases/download/5.1.0/jemalloc-5.1.0.tar.bz2
-tar xvjf jemalloc-5.1.0.tar.bz2 #you may need to do this locally and send the result to the cluster
-cd jemalloc-5.1.0
-./configure --prefix=path_to_local_dir
-make
-make install  #this is gonna install jemalloc to path_to_local_dir
-```
-Then, export jemalloc
-
-```sh
-export PATH="/home1/public/chatzakis/jemalloc_install/bin:${PATH}"
-```
-
-### Installing automake (autoreconf command)
-In some cases, configure or make may need the following command
-```sh
-autoreconf -f -i
-```
-In case automake is missing from the machine, you may install it the following way
-```sh
-wget https://ftp.gnu.org/gnu/automake/automake-1.15.tar.gz
-tar -xzvf automake-1.15.tar.gz
-./configure  --prefix=/home1/public/chatzakis/automake-1.15_install
-export LANGUAGE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-make
-mkdir -p /home1/public/chatzakis/
-make install
-export PATH=/home1/public/chatzakis/automake-1.15_install/bin:$PATH
-aclocal --version
-```
 
 ## Documentation
 Odyssey consists of a set of modules that the user selects to use to create the index and start answering queries.
@@ -354,11 +267,6 @@ For the args parameter, you may
 
 Then, you can provide the function as a parameter to any query scheduling function presented in the previous section.
 
-#### Query Modes (most important)
-| Query Mode  | Description |
-| ----------- | ----------- |
-| 0           | Classic DRESS (first version)       |
-| 21          | Odyssey Baseline (Static) |
 
 ## Data Generators
 Odyssey contains two generators: A random walk dataset generator (Each data point in the data series is produced as xi+1=N(xi,1), where N(0,1) is a standard normal distribution) and a query generator (Each query is extracted from the dataset and then noise is added).
@@ -401,9 +309,6 @@ We are evaluating the performance of Odyssey using the datasets listed below.
 
 
 
-
-
-
 ## Experiments
 We contucted our experimental evaluation with Odyssey algorithms using automated python scripts. Those scripts are configured to schedule specific types of experiments selecting and evaluating different modules of the code. You can run this script by using:
 ```sh
@@ -415,15 +320,14 @@ The results of the runs made by scheduler.py are saved in folders with strict hi
 cd ads/run_automation/
 python3 statistics.py # after you configure the statistics script
 ```
-Using the scripts above you can reproduce the experiments of the paper. For any questions feel free to contact us.
 
 
 ## Involved People
-* [Manos Chatzakis](https://github.com/MChatzakis), Student, University of Crete and ICS-FORTH (chatzakis@ics.forth.gr), Currently studying at [EPFL](https://www.epfl.ch/en/).
-* [Panagiota Fatourou](http://users.ics.forth.gr/~faturu/), Professor, University of Crete, ICS-FORTH, University of Paris and LIPADE (faturu@ics.forth.gr)
-* Eleftherios Kosmas, Postdoctoral Researcher, University of Crete (ekosmas@csd.uoc.gr)
-* [Themis Palpanas](https://helios2.mi.parisdescartes.fr/~themisp/), Professor, University of Paris and LIPADE (themis@mi.parisdescartes.fr)
-* Botao Peng, Professor, Chinese Academy of Sciences (pengbotao@ict.ac.cn)
+* [Manos Chatzakis](https://github.com/MChatzakis), University of Crete and ICS-FORTH (chatzakis@ics.forth.gr), Currently at [EPFL](https://www.epfl.ch/en/).
+* [Panagiota Fatourou](http://users.ics.forth.gr/~faturu/), University of Crete, ICS-FORTH, University of Paris and LIPADE (faturu@ics.forth.gr)
+* Eleftherios Kosmas, University of Crete (ekosmas@csd.uoc.gr)
+* [Themis Palpanas](https://helios2.mi.parisdescartes.fr/~themisp/), University of Paris and LIPADE (themis@mi.parisdescartes.fr)
+* Botao Peng, Chinese Academy of Sciences (pengbotao@ict.ac.cn)
 
 ## Platon
 Odyssey is developed under [Platon](http://users.ics.forth.gr/~faturu/platon/index.html) research project.
