@@ -1064,7 +1064,9 @@ def pdr_experiments(datasetIndex, datasetQueries, runs, threads, nodes, node_gro
     exportVar("DRESS_QUERY_MODE", "2")
     exportVar("DRESS_DISTRIBUTED_QUERIES_INITIAL_BURST", "1")
     exportVar("DRESS_DATASET", str(conf['parisData']['savePath'])+str(conf['datasets'][datasetIndex]['filename']))
-    exportVar("DRESS_DATASET_SIZE",str(conf['datasets'][datasetIndex]['size']))
+    #exportVar("DRESS_DATASET_SIZE",str(conf['datasets'][datasetIndex]['size']))
+    exportVar("DRESS_DATASET_SIZE",str(4*125000000)) #100GB
+
     exportVar("DRESS_TIMESERIES_SIZE",str(conf['datasets'][datasetIndex]['tsSize']))
     exportVar("DRESS_INDEX_THREADS",str(threads[0]))
     exportVar("DRESS_QUERY_THREADS",str(threads[1]))
@@ -1077,9 +1079,11 @@ def pdr_experiments(datasetIndex, datasetQueries, runs, threads, nodes, node_gro
     exportVar("DRESS_NODE_GROUPS",str(node_groups))
     exportVar("DRESS_CH_WORKSTEALING",str(workstealing))
     exportVar("DRESS_BATCHES_TO_SEND", str(4))
-    exportVar("DRESS_PREPROCESS", str(0))
+    exportVar("DRESS_PREPROCESS", str(1))
 
-    folder_id = "_pdr_distributed_queries_benchmark_noWS" + str(datasetQueries[1])
+    folder_id = "_pdr_distributed_queries_benchmark_pre_400GB_" + str(datasetQueries[1])
+    #folder_id = "debug_new"
+
     output_folder_id = "outputs_benchmark" + str(datasetQueries[1]) 
     folder =        str(conf['datasets'][datasetIndex]['name']) + folder_id  + "/"
     folderOutputs = str(conf['datasets'][datasetIndex]['name']) + folder_id  + "/"+ output_folder_id +"/"
@@ -1154,9 +1158,9 @@ def pdr_experiments(datasetIndex, datasetQueries, runs, threads, nodes, node_gro
     #arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
 
     # DYNAMIC MODULE - WS
-    version_folder = "dynamic_module_ws/"
-    query_mode = 22
-    arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
+    #version_folder = "dynamic_module_ws/"
+    #query_mode = 22
+    #arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
 
     # DYNAMIC COORDINATOR - WS
     #version_folder = "dynamic_coordinator_ws/"
@@ -1164,9 +1168,9 @@ def pdr_experiments(datasetIndex, datasetQueries, runs, threads, nodes, node_gro
     #arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
 
     # DYNAMIC THREAD - WS
-    version_folder = "dynamic_thread_ws/"
-    query_mode = 24
-    arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
+    #version_folder = "dynamic_thread_ws/"
+    #query_mode = 24
+    #arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
 
     # GREEDY SORTED - WS
     #version_folder = "greedy_sorted_ws/"
@@ -1189,9 +1193,9 @@ def pdr_experiments(datasetIndex, datasetQueries, runs, threads, nodes, node_gro
     #arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
 
     # DYNAMIC SORTED TRHEAD - WS
-    #version_folder = "dynamic_thread_sorted_ws/"
-    #query_mode = 27
-    #arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
+    version_folder = "dynamic_thread_sorted_ws/"
+    query_mode = 27
+    arrange_pdr_experiment(folder, folderOutputs, datasetIndex, fname, version_folder, nodes, doWSExp, node_groups, share_bsf, threads, query_mode,default_query_mode,runs)
 
 
 def index_scalab_experiment(datasetIndex, datasetQueries, runs, threads, nodes, node_groups, sizes):
@@ -1305,63 +1309,88 @@ def calc_pdr_ex_seismic():
     runs = 5
     th = 16 # or 16?
     
-    nodes = [1,2,4,8]
+    nodes = [2,4,8]
     threads = [16,64]
     
     workstealing = 1
     share_bsf = 1
 
     # Seismic
-    dataset = 0
-    est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/pq_analysis/estimations_parameters/seismic_100classic_sigmoid.txt"
-    workload1 = ["queries_ctrl100_seismic_len256_znorm.bin", 100,  "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/official_execution_times/query_execution_time_estimations_seismic1.txt"] #!
-    workload2 = ["benchmark101_seismic_len256_znorm.bin",   101, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark101.txt"]
-    workload3 = ["benchmark51_seismic_len256_znorm.bin",   51, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark51.txt"]
-    workload4 = ["benchmark201_seismic_len256_znorm.bin",   201, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark201.txt"]
-    workload5 = ["benchmark301_seismic_len256_znorm.bin",   301, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark301.txt"]
-    workload6 = ["benchmark401_seismic_len256_znorm.bin",   401, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark401.txt"]
+    #dataset = 0
+    #est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/pq_analysis/estimations_parameters/seismic_100classic_sigmoid.txt"
+    #workload1 = ["queries_ctrl100_seismic_len256_znorm.bin", 100,  "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/official_execution_times/query_execution_time_estimations_seismic1.txt"] #!
+    #workload2 = ["benchmark101_seismic_len256_znorm.bin",   101, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark101.txt"]
+    #workload3 = ["benchmark51_seismic_len256_znorm.bin",   51, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark51.txt"]
+    #workload4 = ["benchmark201_seismic_len256_znorm.bin",   201, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark201.txt"]
+    #workload5 = ["benchmark301_seismic_len256_znorm.bin",   301, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark301.txt"]
+    #workload6 = ["benchmark401_seismic_len256_znorm.bin",   401, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark401.txt"]
 
     # Astro
     #dataset = 2 
-    #est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/pq_analysis/estimations_parameters/astro_100classic_sigmoid.txt"
-    #workloadA1 = ["astro_bench/queries_ctrl100_astro_len256_znorm.bin", 100, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/astro100.txt"]
-    #workloadA2 = ["astro_bench/queries_ctrl200_astro_len256_znorm.bin", 200, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/astro200.txt"]
-    #workloadA3 = ["astro_bench/queries_ctrl400_astro_len256_znorm.bin", 400, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/astro400.txt"]
-    #workloadA4 = ["astro_bench/queries_ctrl800_astro_len256_znorm.bin", 800, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/astro800.txt"]
+    #est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/pq_analysis/estimations_parameters/astro_100classic_sigmoid.txt"
+    #workloadA1 = ["queries_ctrl100_astronomy_len256_znorm.bin", 100, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro100.txt"]
+    #workloadA1 = ["benchmark101_astro_len256_znorm.bin", 101, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark101.txt"]
+    #workloadA2 = ["benchmark201_astro_len256_znorm.bin", 201, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
+    #workloadA3 = ["benchmark401_astro_len256_znorm.bin", 401, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark401.txt"]
+    #workloadA4 = ["benchmark801_astro_len256_znorm.bin", 801, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark801.txt"]
 
     #Random 100
     #dataset = 6
-    #est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/pq_analysis/estimations_parameters/random_100classic_sigmoid.txt"
-    #workload9 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 100, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
-    #workload10 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 200, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
-    #workload11 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 400, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
-    #workload12 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 800, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
+    #est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/pq_analysis/estimations_parameters/random_100classic_sigmoid.txt"
+    #workload9 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 100, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
+    #workload10 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 200, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
+    #workload11 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 400, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
+    #workload12 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 800, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
 
     #workload13 = ["benchmark1001_seismic_len256_znorm.bin", 800, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_benchmark1001.txt"]
 
     #new experiments
-    workload1 = ["new-experiments/queries_ctrl1600_seismic_len256_znorm.bin", 100,  "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/official_execution_times/query_execution_time_estimations_seismic1.txt"] #!
+    #workload1 = ["new-experiments/queries_ctrl1600_seismic_len256_znorm.bin", 100,  "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/official_execution_times/query_execution_time_estimations_seismic1.txt"] #!
 
-    workloads = [workload2]
+    # DEEP
+    #dataset =  4
+    #est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/pq_analysis/estimations_parameters/deep_100classic_sigmoid.txt"
+    #workloadDeep1 = ["queries_ctrl100_deep1b_len96_znorm.bin", 100, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_deep100.txt"]
+    ##workloadDeep2 = ["queries_ctrl1600_deep_len96_znorm.bin", 200, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_deep1600.txt"]
+    #workloadDeep3 = ["queries_ctrl1600_deep_len96_znorm.bin", 400, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_deep1600.txt"]
+    #workloadDeep4 = ["queries_ctrl1600_deep_len96_znorm.bin", 800, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_deep1600.txt"]
+
+    #SIFT
+    #dataset =  1
+    #est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/pq_analysis/estimations_parameters/sift_100classic_sigmoid.txt"
+    #workloadSift1 = ["queries_size100_sift_len128_znorm.bin", 100, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_sift100.txt"]
+    
+    #YANDDDDEX
+    dataset = 15
+    est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/pq_analysis/estimations_parameters/yandex_100classic_sigmoid.txt"
+    workloadYandex1 = ["query.public.100K.bin", 100, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_yandex100.txt"]
+
+    #Random 1.6TB
+    #dataset = 16
+    #est_func = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/pq_analysis/estimations_parameters/random_100classic_sigmoid.txt"
+    #workloadTB1 = ["randomDatasets/queries_ctrl1000_random_len256_znorm.bin", 100, "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt"]
+    
+
+    workloads = [workloadYandex1]
 
     for workload in workloads :
         est_f = workload[2]
 
-        nodes = [1,2,4,8]
-        node_groups = 1
-        pdr_experiments(dataset, workload, runs, threads, nodes, node_groups, share_bsf, workstealing, th, est_func, est_f)
+        #nodes = [8]
+        #node_groups = 1
+        #pdr_experiments(dataset, workload, runs, threads, nodes, node_groups, share_bsf, workstealing, th, est_func, est_f)
         
-        nodes = [2,4,8]
+        nodes = [8]
         node_groups = 2
         pdr_experiments(dataset, workload, runs, threads, nodes, node_groups, share_bsf, workstealing, th, est_func, est_f)
         
-        nodes = [4,8]
-        node_groups = 4
-        pdr_experiments(dataset, workload, runs, threads, nodes, node_groups, share_bsf, workstealing, th, est_func, est_f)
+        #nodes = [8]
+        #node_groups = 4
+        #pdr_experiments(dataset, workload, runs, threads, nodes, node_groups, share_bsf, workstealing, th, est_func, est_f)
         
-        nodes = [8]
-        node_groups = 8
-        pdr_experiments(dataset, workload, runs, threads, nodes, node_groups, share_bsf, workstealing, th, est_func, est_f)
+        #nodes = [8]
+        #node_groups = 8
+        #pdr_experiments(dataset, workload, runs, threads, nodes, node_groups, share_bsf, workstealing, th, est_func, est_f)
         
         #nodes = [16]
         #node_groups = 16

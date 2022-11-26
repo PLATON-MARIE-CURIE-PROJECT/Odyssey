@@ -1108,8 +1108,8 @@ def calc_pdr_results(datasetIndex, runs, threads, node_g_dict, share_bsf, result
     dynamic_node_times_ws = {}
     sorted_dynamic_node_times = {}
     #print(sorted_dynamic_node_times)
-    dir_prefix = results_path + str(conf['datasets'][datasetIndex]['name']) + "/pdr_dq" + "/baseline_messi/"
-    share_bsf = 0
+    dir_prefix = results_path + str(conf['datasets'][datasetIndex]['name']) + "/pdr_dq" + "/dynamic_thread_sorted_ws/"
+    share_bsf = 1
     for node in nodes:
         
         group_times_qa = {}
@@ -1137,7 +1137,9 @@ def calc_pdr_results(datasetIndex, runs, threads, node_g_dict, share_bsf, result
             print("QA: " , decimalTwo(res[conf['indexesCollection']['varIndexes']['queryAnsweringTime']]))
             print("Index: " ,decimalTwo(res[conf['indexesCollection']['varIndexes']['indexCreationTime']]))
             print("Buff: ", decimalTwo(res[conf['indexesCollection']['varIndexes']['isaxBufferTime']]))
+            print("total-index:", decimalTwo(res[conf['indexesCollection']['varIndexes']['indexCreationTime']])+decimalTwo(res[conf['indexesCollection']['varIndexes']['isaxBufferTime']]))
             print("total: ", decimalTwo(res[conf['indexesCollection']['varIndexes']['queryAnsweringTime']]) + decimalTwo(res[conf['indexesCollection']['varIndexes']['indexCreationTime']])+decimalTwo(res[conf['indexesCollection']['varIndexes']['isaxBufferTime']]))
+            
             #print(res)
 
             #for i in range(node):
@@ -1180,28 +1182,28 @@ def main():
     #calcSaldResultsMaximumsPerRun()
     #calcSeismicDistributedQueriesResults()
 
-    calcTHresults(0, 1, 5, [16,64], "../experiments/thesis/temp_experiments/seismic_th_experiment_100/", [1,2,4,8,16,32,64,128,256,512])
+    #calcTHresults(0, 1, 5, [16,64], "../experiments/thesis/temp_experiments/seismic_th_experiment_100/", [1,2,4,8,16,32,64,128,256,512])
 
     #calcWSresults(0, 2, 10 , [16,64], "seismic_chatzakis_workstealing_2/")
 
     #calcWSbatchResults(0, 2, 5, [16,64], "./seismic_chatzakis_workstealing_2/",[1,2,3,4,5,6,7,8,9,10])
     #print("-- Statistics Script End --")
 
-    return
+    #return
 
     dd = {}
-    dd[1] = [1]
-    dd[2] = [2]
-    dd[4] = [4]
-    dd[8] = [8]
+    #dd[1] = [1]
+    #dd[2] = [2]
+    #dd[4] = [4]
+    dd[8] = [2]
     #dd[16] = [1,2,4,8,16]
 
     #dd[8] = [1,2,4,8]
     #dd[16] = [1,2,8,16]
-    calc_pdr_results(0,4,[16,64], dd, 0 , "./seismic_pdr_distributed_queries_benchmark_bsfNOTShare101/")
+    calc_pdr_results(15,4,[16,64], dd, 1 , "./yandex_pdr_distributed_queries_benchmark_pre_400GB_100/")
     
     n = 16
-    #print("\nSeismic")
+    #print("\nSeismic")hh
     #index_scalab_results(0, 5, [16,64], [25 * 1000000, 50 * 1000000 ,75 * 1000000 ,100 * 1000000], n, "./")
 
     #print("\nAstro")

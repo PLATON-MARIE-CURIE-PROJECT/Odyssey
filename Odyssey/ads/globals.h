@@ -317,7 +317,7 @@ typedef struct pdr_node_group
 #define CALL_MODULE (comm_data->module_func)(comm_data->q_loaded, comm_data->q_num, comm_data->process_buffer, comm_data->request, comm_data->rec_message, comm_data->send_request, comm_data->termination_message_id);
 #define DYNAMIC_TERMINATION_MESSAGE -1
 
-#define MAX_PQs_WORKSTEALING 20000
+#define MAX_PQs_WORKSTEALING 2000000
 
 #define ENABLE_PRINTS_WORKSTEALING_HELPER 0 //?
 #define ENABLE_PRINTS_WORKSTEALING_INTERNALS 0 //?

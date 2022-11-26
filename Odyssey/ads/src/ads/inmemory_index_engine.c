@@ -1594,7 +1594,7 @@ void distribute_node_data(parallel_fbl_soft_buffer *current_buffer, int come_sz)
 
     for (int i = 0; i < tmp_buffer_size; i++)
     {
-        tmp_buffer_all[i % comm_sz]++;
+        tmp_buffer_all[i % come_sz]++;
     }
 
     for (int i = 0; i < come_sz; i++)

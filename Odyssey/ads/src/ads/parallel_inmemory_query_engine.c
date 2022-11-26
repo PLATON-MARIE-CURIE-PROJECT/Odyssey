@@ -826,8 +826,8 @@ float try_to_receive_initial_bsfs_chatzakis(float *shared_results)
 extern int gather_init_bsf_only;
 /**
  * @brief MESSI exact search
- * 
- * @param args Exact search arguments 
+ *
+ * @param args Exact search arguments
  * @return query_result Contains the float result of the query
  */
 query_result exact_search_ParISnew_inmemory_hybrid_ekosmas(search_function_params args)
@@ -2507,7 +2507,7 @@ void receive_shared_bsf_chatzakis_v(MESSI_workstealing_query_data_chatzakis *inp
             if ((input_data->bsf_result)->distance > new_bsf)
             {
                 bsf_change_counter++;
-                printf("[ -- WORKS _ _ _ _ _ _ ]=> Node %d received a new BSF Value from node %d, val = [%d, %f]\n", my_rank, rank, query_number, new_bsf);
+                //printf("[ -- WORKS _ _ _ _ _ _ ]=> Node %d received a new BSF Value from node %d, val = [%d, %f]\n", my_rank, rank, query_number, new_bsf);
                 (input_data->bsf_result)->distance = new_bsf;
             }
             pthread_mutex_unlock(input_data->bsf_lock);
@@ -2780,19 +2780,7 @@ void My_threadPin(int pid, int max_threads)
 
     CPU_ZERO(&mask);
 
-    CPU_SET(cpu_id % max_threads, &mask); // OLD PINNING 1
-
-    // if (cpu_id % 2 == 0)                                             // OLD PINNING 2
-    //    CPU_SET(cpu_id % max_threads, &mask);
-    // else
-    //    CPU_SET((cpu_id + max_threads/2)% max_threads, &mask);
-
-    // if (cpu_id % 2 == 0)                                             // FULL HT
-    //    CPU_SET(cpu_id/2, &mask);
-    // else
-    //    CPU_SET((cpu_id/2) + (max_threads/2), &mask);
-
-    // CPU_SET((cpu_id%4)*10 + (cpu_id%40)/4 + (cpu_id/40)*40, &mask);     // SOCKETS PINNING - Vader
+    CPU_SET(cpu_id % max_threads, &mask);
 
     int ret = sched_setaffinity(0, len, &mask);
     if (ret == -1)
@@ -2840,8 +2828,6 @@ void *exact_search_workstealing_thread_routine_chatzakis(void *rfdata)
         receive_shared_bsf_chatzakis(in_data->workernumber, in_data->bsf_result, in_data->shared_bsf_results, in_data->bsf_lock);
     }
 
-    // printf("[MC] - Thread %d finished processing the buffers and proceeds to help another thread.\n", in_data->workernumber);
-
     for (int i = 0; i < in_data->total_batches; i++)
     {
         if (!(in_data->batches)[i].processed_phase_1 && !(in_data->batches)[i].is_getting_help_phase1)
@@ -2852,7 +2838,6 @@ void *exact_search_workstealing_thread_routine_chatzakis(void *rfdata)
         }
     }
 
-    // printf("[MC] - Thread %d finished helping, waiting at the phase 1 barrier.\n", in_data->workernumber);
     pthread_barrier_wait(in_data->sync_barrier);
     if (in_data->workernumber == 0)
     {
@@ -2863,21 +2848,8 @@ void *exact_search_workstealing_thread_routine_chatzakis(void *rfdata)
     pqueue_t **all_pqs;
     if (in_data->workernumber == 0)
     {
-        /*for (int i = 0; i < in_data->total_batches; i++)
-        {
-            subtree_batch batch = in_data->batches[i];
-            printf("[MC] - Subtree batch %d: PQ_AMOUNT: %d ", i, batch.pq_amount);
-            int total_pqs = batch.pq_amount + 1;
-            for (int j = 0; j < total_pqs; j++)
-            {
-                if (batch.pq[j] != NULL)
-                {
-                    printf("pq[%d].size = %d ", j, batch.pq[j]->size);
-                }
-            }
-            printf("\n");
-        }*/
         int total_pqs = 0;
+
         for (int i = 0; i < in_data->total_batches; i++)
         {
             int pqs = in_data->batches[i].pq_amount + 1;
@@ -2906,16 +2878,6 @@ void *exact_search_workstealing_thread_routine_chatzakis(void *rfdata)
                 }
             }
         }
-
-        // shuffle_pq_array(total_pqs, *(in_data->final_pq_list)); //shuffling shown minor improvements
-
-        /*for (int i = 0; i < *(in_data->final_pq_list_size); i++)
-        {
-            // printf("PQ[%d]_peek = %f\n", i, ((query_result *)pqueue_peek((*(in_data->final_pq_list))[i]))->distance);
-            printf("pq[%d].(size,peak) = (%d,%f) ", i, (*(in_data->final_pq_list))[i]->size, ((query_result *)pqueue_peek((*(in_data->final_pq_list))[i]))->distance);
-        }
-        printf("\n");
-        */
 
         if (gather_pq_stats)
         {
@@ -2946,17 +2908,6 @@ void *exact_search_workstealing_thread_routine_chatzakis(void *rfdata)
             }
         }
 
-        // printf("Array size %d\n", total_pqs);
-        /*for (int i = 0; i < in_data->total_batches; i++)
-        {
-            if (in_data->batches[i].pq_amount == 0 && in_data->batches[i].pq[0] == NULL)
-            {
-                continue;
-            }
-
-            printf("Batch[%d] (num_pqs = %d) min = %d, max= %d\n", i, in_data->batches[i].pq_amount + 1, in_data->batches[i].min_pq_index, in_data->batches[i].max_pq_index);
-        }*/
-
         *(in_data->priority_queues_filled) = 1;
     }
 
@@ -2982,7 +2933,6 @@ void *exact_search_workstealing_thread_routine_chatzakis(void *rfdata)
         pqueue_t *pq = (*(in_data->final_pq_list))[current_pq_index];
         if (pq->is_stolen)
         {
-            // printf("[WORKSTEALING MAIN NODE] - PQ %d where stolen by another node.\n", current_pq_index);
             local_pqs_stolen++;
             continue;
         }
@@ -3021,11 +2971,16 @@ batch_list *create_subtree_batches_simple_chatzakis(node_list *nodelist, int num
     batchlist->batch_amount = number_of_batches_to_create;
     batchlist->batches = malloc(sizeof(subtree_batch) * number_of_batches_to_create);
 
+    if(batchlist->batches == NULL){
+        printf("Batches are NULL! on node %d\n", my_rank);
+        exit(EXIT_FAILURE);
+    }
+
     int batch_size = nodelist->node_amount / batchlist->batch_amount;
 
     for (int i = 0; i < number_of_batches_to_create; i++)
     {
-        memset(&batchlist->batches[i], 0, sizeof(subtree_batch)); // sets everything to 0. (mallon? :))
+        //memset(&(batchlist->batches[i]), 0, sizeof(subtree_batch)); // sets everything to 0. (mallon? :))
 
         batchlist->batches[i].id = i;
         batchlist->batches[i].from = i * batch_size;
@@ -3054,19 +3009,319 @@ batch_list *create_subtree_batches_simple_chatzakis(node_list *nodelist, int num
 
 int estimate_th(double x, double (*estimation_func)(double))
 {
+    if(estimation_func == NULL){
+        printf(">>edw einai to lathos...\n");
+        return -1;
+    }
     return (int)estimation_func(x);
 }
 
+/*
+Additions:
+*/
+extern float *tmp_raw_file;
+
+query_result refine_answer_inmemory_m(ts_type *ts, ts_type *paa, isax_index *index,
+                                      query_result approximate_bsf_result,
+                                      float minimum_distance, int limit)
+{
+    query_result bsf_result = approximate_bsf_result;
+
+    int tight_bound = index->settings->tight_bound;
+    int aggressive_check = index->settings->aggressive_check;
+
+    int j = 0;
+    pqueue_t *pq = pqueue_init(index->settings->root_nodes_size,
+                               cmp_pri, get_pri, set_pri, get_pos, set_pos);
+
+    // Insert all root nodes in heap.
+    isax_node *current_root_node = index->first_node;
+
+    while (current_root_node != NULL)
+    {
+        query_result *mindist_result = malloc(sizeof(query_result));
+
+        mindist_result->distance = minidist_paa_to_isax(paa, current_root_node->isax_values,
+                                                        current_root_node->isax_cardinalities,
+                                                        index->settings->sax_bit_cardinality,
+                                                        index->settings->sax_alphabet_cardinality,
+                                                        index->settings->paa_segments,
+                                                        MINVAL, MAXVAL,
+                                                        index->settings->mindist_sqrt);
+        mindist_result->node = current_root_node;
+        pqueue_insert(pq, mindist_result);
+        current_root_node = current_root_node->next;
+    }
+    query_result *n;
+    int checks = 0;
+    while ((n = pqueue_pop(pq)))
+    {
+        // The best node has a worse mindist, so search is finished!
+        if (n->distance >= bsf_result.distance || n->distance > minimum_distance)
+        {
+            pqueue_insert(pq, n);
+            break;
+        }
+        else
+        {
+            // If it is a leaf, check its real distance.
+            if (n->node->is_leaf)
+            {
+                // *** ADAPTIVE SPLITTING ***
+                if (!n->node->has_full_data_file &&
+                    (n->node->leaf_size > index->settings->min_leaf_size))
+                {
+                    // Split and push again in the queue
+                    // split_node(index, n->node);
+                    // pqueue_insert(pq, n);
+                    continue;
+                }
+                // *** EXTRA BOUNDING ***
+                if (tight_bound)
+                {
+                    j++;
+                    float mindistance = calculate_minimum_distance_inmemory(index, n->node, ts, paa);
+
+                    if (mindistance >= bsf_result.distance)
+                    {
+                        free(n);
+                        continue;
+                    }
+                }
+                // *** REAL DISTANCE ***
+                checks++;
+                float distance = calculate_node_distance_inmemory_m(index, n->node, ts, bsf_result.distance);
+                if (distance < bsf_result.distance)
+                {
+                    bsf_result.distance = distance;
+                    bsf_result.node = n->node;
+                }
+                if (checks > limit)
+                {
+                    pqueue_insert(pq, n);
+                    break;
+                }
+            }
+            else
+            {
+                // If it is an intermediate node calculate mindist for children
+                // and push them in the queue
+                if (n->node->left_child->isax_cardinalities != NULL)
+                {
+                    if (n->node->left_child->is_leaf && !n->node->left_child->has_partial_data_file && aggressive_check)
+                    {
+                        float distance = calculate_node_distance_inmemory(index, n->node->left_child, ts, bsf_result.distance);
+                        if (distance < bsf_result.distance)
+                        {
+                            bsf_result.distance = distance;
+                            bsf_result.node = n->node->left_child;
+                        }
+                    }
+                    else
+                    {
+                        query_result *mindist_result = malloc(sizeof(query_result));
+                        mindist_result->distance = minidist_paa_to_isax(paa, n->node->left_child->isax_values,
+                                                                        n->node->left_child->isax_cardinalities,
+                                                                        index->settings->sax_bit_cardinality,
+                                                                        index->settings->sax_alphabet_cardinality,
+                                                                        index->settings->paa_segments,
+                                                                        MINVAL, MAXVAL,
+                                                                        index->settings->mindist_sqrt);
+                        mindist_result->node = n->node->left_child;
+                        pqueue_insert(pq, mindist_result);
+                    }
+                }
+                if (n->node->right_child->isax_cardinalities != NULL)
+                {
+                    if (n->node->right_child->is_leaf && !n->node->left_child->has_partial_data_file && aggressive_check)
+                    {
+                        float distance = calculate_node_distance_inmemory(index, n->node->right_child, ts, bsf_result.distance);
+                        if (distance < bsf_result.distance)
+                        {
+                            bsf_result.distance = distance;
+                            bsf_result.node = n->node->right_child;
+                        }
+                    }
+                    else
+                    {
+                        query_result *mindist_result = malloc(sizeof(query_result));
+                        mindist_result->distance = minidist_paa_to_isax(paa, n->node->right_child->isax_values,
+                                                                        n->node->right_child->isax_cardinalities,
+                                                                        index->settings->sax_bit_cardinality,
+                                                                        index->settings->sax_alphabet_cardinality,
+                                                                        index->settings->paa_segments,
+                                                                        MINVAL, MAXVAL,
+                                                                        index->settings->mindist_sqrt);
+                        mindist_result->node = n->node->right_child;
+                        pqueue_insert(pq, mindist_result);
+                    }
+                }
+            }
+
+            // Free the node currently popped.
+            free(n);
+        }
+    }
+    // Free the nodes that where not popped.
+    while ((n = pqueue_pop(pq)))
+    {
+        free(n);
+    }
+    // Free the priority queue.
+    pqueue_free(pq);
+    return bsf_result;
+}
+
+float calculate_minimum_distance_inmemory(isax_index *index, isax_node *node, ts_type *raw_query, ts_type *query)
+{
+    // printf("Calculating minimum distance...\n");
+    float bsfLeaf = minidist_paa_to_isax(query, node->isax_values,
+                                         node->isax_cardinalities,
+                                         index->settings->sax_bit_cardinality,
+                                         index->settings->sax_alphabet_cardinality,
+                                         index->settings->paa_segments,
+                                         MINVAL, MAXVAL,
+                                         index->settings->mindist_sqrt);
+    float bsfRecord = FLT_MAX;
+    // printf("---> Distance: %lf\n", bsfLeaf);
+    // sax_print(node->isax_values, 1,  index->settings->sax_bit_cardinality);
+
+    if (!index->has_wedges)
+    {
+        //      printf("--------------\n");
+        int i = 0;
+
+        if (node->buffer != NULL)
+        {
+            for (i = 0; i < node->buffer->partial_buffer_size; i++)
+            {
+                float mindist = minidist_paa_to_isax_raw_SIMD(query, node->buffer->partial_sax_buffer[i], index->settings->max_sax_cardinalities,
+                                                              index->settings->sax_bit_cardinality,
+                                                              index->settings->sax_alphabet_cardinality,
+                                                              index->settings->paa_segments, MINVAL, MAXVAL,
+                                                              index->settings->mindist_sqrt);
+                //              printf("+[PARTIAL] %lf\n", mindist);
+                if (mindist < bsfRecord)
+                {
+                    bsfRecord = mindist;
+                }
+            }
+
+            for (i = 0; i < node->buffer->tmp_partial_buffer_size; i++)
+            {
+                float mindist = minidist_paa_to_isax_raw_SIMD(query, node->buffer->tmp_partial_sax_buffer[i], index->settings->max_sax_cardinalities,
+                                                              index->settings->sax_bit_cardinality,
+                                                              index->settings->sax_alphabet_cardinality,
+                                                              index->settings->paa_segments, MINVAL, MAXVAL,
+                                                              index->settings->mindist_sqrt);
+                //              printf("+[TMP_PARTIAL] %lf\n", mindist);
+                if (mindist < bsfRecord)
+                {
+                    bsfRecord = mindist;
+                }
+            }
+        }
+    }
+    else
+    {
+        int i = 0;
+        if (node->wedges[0] == FLT_MIN)
+        {
+            bsfRecord = FLT_MAX;
+        }
+        else
+        {
+            bsfRecord = 0;
+            ts_type *min_wedge = &node->wedges[0];
+            ts_type *max_wedge = &node->wedges[index->settings->timeseries_size];
+            if (raw_query[i] > max_wedge[i])
+            {
+                bsfRecord += (raw_query[i] - max_wedge[i]) * (raw_query[i] - max_wedge[i]);
+            }
+            else if (raw_query[i] < max_wedge[i] && raw_query[i] > min_wedge[i])
+            {
+                // bound += 0;
+            }
+            else
+            {
+                bsfRecord += (min_wedge[i] - raw_query[i]) * (min_wedge[i] - raw_query[i]);
+            }
+            // bsfRecord = sqrtf(bsfRecord);
+        }
+    }
+    float bsf = (bsfRecord == FLT_MAX) ? bsfLeaf : bsfRecord;
+    //  printf("\t%.2lf - %d [%d] : %s.%s\n",bsfRecord, node->leaf_size, node->is_leaf, node->filename, node->has_full_data_file ? ".full" : ".part");
+
+    // printf("---> Final: %lf\n", bsf);
+    return bsf;
+}
+
+float calculate_node_distance_inmemory_m(isax_index *index, isax_node *node, ts_type *query, float bsf)
+{
+    COUNT_CHECKED_NODE()
+
+    // If node has buffered data
+    if (node->buffer != NULL)
+    {
+        int i;
+#pragma omp parallel for num_threads(maxquerythread) reduction(min \
+                                                               : bsf)
+        for (i = 0; i < node->buffer->full_buffer_size; i++)
+        {
+            float dist = ts_euclidean_distance_SIMD(query, node->buffer->full_ts_buffer[i],
+                                                    index->settings->timeseries_size, bsf);
+            if (dist < bsf)
+            {
+                bsf = dist;
+            }
+        }
+#pragma omp parallel for num_threads(maxquerythread) reduction(min \
+                                                               : bsf)
+        for (i = 0; i < node->buffer->tmp_full_buffer_size; i++)
+        {
+            float dist = ts_euclidean_distance_SIMD(query, node->buffer->tmp_full_ts_buffer[i],
+                                                    index->settings->timeseries_size, bsf);
+            if (dist < bsf)
+            {
+                bsf = dist;
+            }
+        }
+#pragma omp parallel for num_threads(maxquerythread) reduction(min \
+                                                               : bsf)
+        for (i = 0; i < node->buffer->partial_buffer_size; i++)
+        {
+
+            float dist = ts_euclidean_distance_SIMD(query, &(tmp_raw_file[*node->buffer->partial_position_buffer[i]]),
+                                                    index->settings->timeseries_size, bsf);
+
+            if (dist < bsf)
+            {
+                bsf = dist;
+            }
+        }
+    }
+
+    //////////////////////////////////////
+
+    return bsf;
+}
+extern int min_checked_leaves;
+/*
+Additions end
+*/
+
 extern int first_time_flag;
 /**
- * @brief Odyssey exact search 
- * 
- * @param args Exact search arguments 
+ * @brief Odyssey exact search
+ *
+ * @param args Exact search arguments
  * @return query_result Contains the float result of the query
  */
 query_result exact_search_workstealing_chatzakis(search_function_params args)
 {
     // static int first_time_flag = 1;
+
+    //printf("Starting node %d...\n", my_rank);
 
     int query_id = args.query_id;
     ts_type *ts = args.ts;
@@ -3080,6 +3335,9 @@ query_result exact_search_workstealing_chatzakis(search_function_params args)
     float *shared_bsf_results = args.shared_bsf_results;
 
     query_result bsf_result = approximate_search_inmemory_pRecBuf_ekosmas(ts, paa, index);
+    if(bsf_result.distance == FLT_MAX) {
+        bsf_result = refine_answer_inmemory_m(ts, paa, index, bsf_result, minimum_distance, min_checked_leaves);
+    }
 
     query_counter = query_id;
 
@@ -3108,12 +3366,12 @@ query_result exact_search_workstealing_chatzakis(search_function_params args)
     int median = estimate_th(bsf_result.distance, estimation_func);
     int max_th = __INT32_MAX__;
     int query_th = median / th_div_factor;
-    if (query_th == 0)
+    if (query_th <= 0)
     {
         query_th = 1;
     }
 
-    batch_list *batchlist = create_subtree_batches_simple_chatzakis(nodelist, maxquerythread, query_th);//!
+    batch_list *batchlist = create_subtree_batches_simple_chatzakis(nodelist, maxquerythread, query_th); //!
 
     pthread_t threadid[maxquerythread];
     pthread_t workstealing_thread;
@@ -3184,7 +3442,6 @@ query_result exact_search_workstealing_chatzakis(search_function_params args)
         workerdata[i].bsf_received_data = bsf_recv_data;
         workerdata[i].bsf_receive_requests = bsf_recv_requests;
 
-        //! new
         workerdata[i].comm_data = comm_data;
         workerdata[i].shared_bsf_results = shared_bsf_results;
     }
@@ -3271,7 +3528,7 @@ query_result exact_search_workstealing_chatzakis(search_function_params args)
 
 /**
  * @brief Odyssey workstealing (helper node) algorithm
- * 
+ *
  * @param ws_args Workstealing algorithms
  * @return query_result Contains the float result of the query
  */
@@ -3313,7 +3570,7 @@ query_result exact_search_workstealing_helper_single_batch_chatzakis(ws_search_f
 
     int median = estimate_th(bsf_result.distance, estimation_func);
     int query_th = median / th_div_factor;
-    if (query_th == 0)
+    if (query_th <= 0)
     {
         query_th = 1;
     }

@@ -45,10 +45,6 @@ Copyright (C) 2011-2014 University of Trento.\n\
 #include "ads/parallel_query_engine.h"
 #include "ads/parallel_index_engine.h"
 #include "ads/inmemory_topk_engine.h"
-//#define PROGRESS_CALCULATE_THREAD_NUMBER 4
-//#define PROGRESS_FLUSH_THREAD_NUMBER 4
-//#define QUERIES_THREAD_NUMBER 4
-//#define DISK_BUFFER_SIZE 32
 
 #define CHECK_FOR_CORRECT_VERSION(function_type)                                 \
     if (function_type != 9990)                                                   \
@@ -193,7 +189,7 @@ isax_index *query_index = NULL;
 // Chatzakis - Query Prediction Stats
 char produce_query_prediction_statistics = 0; //! false/true!
 long int per_query_total_bsf_changes = 0;
-char *query_statistics_filename = "query_prediction_stats_current.txt";
+char *query_statistics_filename = "YANDEX_query_prediction_stats_current.txt";
 FILE *query_statistics_file = NULL;
 struct timeval bsf_start_time, bsf_end_time;
 double elapsed_time_for_bsf = 0;
@@ -204,7 +200,7 @@ double sum_of_per_query_times = 0;
 
 // Chatzakis - Query Statistics
 char keep_per_query_times = 0;
-char *query_times_output_file = "query_execution_times_seismic_5000_7"; //"query_execution_time_estimations_benchmark129.txt";
+char *query_times_output_file = "query_execution_times_sift_100"; //"query_execution_time_estimations_benchmark129.txt";
 
 // Chatzakis - Query Grouping
 query_group *guery_groups = NULL;
@@ -221,7 +217,7 @@ FILE *subtree_stats_file = NULL;
 char gather_subtree_stats = 0;
 
 // Chatzakis - WS pq stats
-char *pq_stats_filename = "./pq_stats_new.txt";
+char *pq_stats_filename = "./YANDEX_pq_stats_new.txt";
 FILE *pq_stats_file = NULL;
 char gather_pq_stats = 0;
 char *pq_size_stats_filename = "./pq_size_stats.txt";
@@ -242,8 +238,8 @@ pdr_node_group *node_groups = NULL;
 long int node_group_total_nodes;
 int bsf_sharing_pdr = 0;
 
-int gather_init_bsf_only = 1;
-char *init_bsf_filename = "initial_bsfs.txt";
+int gather_init_bsf_only = 0;
+char *init_bsf_filename = "_new_YANDEX100_initial_bsfs.txt";
 
 //! WORKSTEALING PATCH
 MPI_Request *global_helper_requests = NULL;
@@ -277,7 +273,6 @@ void create_mpi_type()
 int main(int argc, char **argv)
 {
     DRESS_chatzakis(argc, argv);
-
     return 0;
 }
 
@@ -297,7 +292,6 @@ void recv_final_result(int queries_size)
     COUNT_MPI_TIME_START
     for (int i = 0; i < comm_sz; i++)
     {
-        // MPI_Recv(results[i], queries_size, MPI_FLOAT, MPI_ANY_SOURCE, TAG, MPI_COMM_WORLD, &status);
         MPI_Recv(&(recv_results[0]), queries_size, MPI_FLOAT, MPI_ANY_SOURCE, QUERIES_RESULTS_TAG, MPI_COMM_WORLD, &status);
 
         for (int j = 0; j < queries_size; ++j)
@@ -307,32 +301,23 @@ void recv_final_result(int queries_size)
     }
     COUNT_MPI_TIME_END
 
-    // find min distance from the results
     for (int query = 0; query < queries_size; ++query)
     {
         int process = 0;
         float min_distance = results[process][query];
 
-        // printf("Query [%d] ", query);
-
         for (process = 1; process < comm_sz; ++process)
         {
-
-            // printf("[%d=%f] ", process, results[process][query]);
-
             if (results[process][query] < min_distance)
             {
                 min_distance = results[process][query];
             }
         }
-        // if(DEBUG_PRINT_FLAG){
+
         printf("Query [%d] -> min distance: [%f]\n", query, min_distance);
-        // printf("\n");
-        //  }
     }
 }
 
-/*manolis*/
 void collect_threads_total_difference_stats()
 {
     MPI_Request request;
@@ -395,7 +380,6 @@ void collect_queries_times(int queries_size)
 
         for (int node = 1; node < comm_sz; node++)
         {
-
             if (queries_times_stats[node][query] < min_query_time)
             {
                 min_query_time = queries_times_stats[node][query];
@@ -419,9 +403,12 @@ void collect_queries_times(int queries_size)
         max_queries_times[query] = max_query_time;
     }
 
-    /*for (int query = 0; query < queries_size; query++)
+    /*if (my_rank == MASTER)
     {
-        printf("query[%d] -> Time = %f\n", query, min_queries_times[query] / 1000000);
+        for (int query = 0; query < queries_size; query++)
+        {
+            printf("%f\n", max_queries_times[query] / 1000000);
+        }
     }*/
 }
 
@@ -1493,7 +1480,7 @@ void initial_log_chatzakis()
 
 void benchmark1(isax_index *index, dress_query *seismic_queries, int size)
 {
-    int total_queries_to_include = 200 + 1;
+    int total_queries_to_include = 800 + 1;
     int selected_q_ids[total_queries_to_include];
 
     for (int i = 0; i < total_queries_to_include - 1; i++)
@@ -1512,8 +1499,8 @@ void benchmark1(isax_index *index, dress_query *seismic_queries, int size)
     printf("\n");
 
     // create the files:
-    char *benchmark_filename = "/gpfs/scratch/chatzakis/benchmark201_astro_len256_znorm.bin"; //!
-    char *benchmark_estimations_filename = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark201.txt";
+    char *benchmark_filename = "/gpfs/scratch/chatzakis/benchmark801_astro_len256_znorm.bin"; //!
+    char *benchmark_estimations_filename = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/benchmark_estimations/query_execution_time_estimations_astro_benchmark801.txt";
     FILE *bf = fopen(benchmark_filename, "wb");
     if (!bf)
     {
@@ -1602,12 +1589,12 @@ void create_benchmarks_chatzakis(isax_index *index)
 
     char *seismic_queries1_file = "/gpfs/scratch/chatzakis/queries_ctrl100_astronomy_len256_znorm.bin";
     // char *seismic_queries1_execution_times = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/official_execution_times/query_execution_time_estimations_seismic1.txt";
-    char *seismic_queries1_execution_times = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/predictions/predicted_execution_times/astro_100.txt";
+    char *seismic_queries1_execution_times = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/predictions/predicted_execution_times/astro_100.txt";
     int size1 = 100;
 
     char *seismic_queries2_file = "/gpfs/scratch/chatzakis/generated/queries_ctrl5000_astro_len256_znorm.bin";
     // char *seismic_queries2_execution_times = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/official_execution_times/query_execution_time_estimations_seismic2.txt";
-    char *seismic_queries2_execution_times = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/DRESS/ads/run_automation/query_analysis/predictions/predicted_execution_times/astro_1K.txt";
+    char *seismic_queries2_execution_times = "/gpfs/users/chatzakis/Thesis-Manos-Chatzakis/Odyssey/ads/run_automation/query_analysis/predictions/predicted_execution_times/astro_1K.txt";
     int size2 = 1000;
 
     printf("[MC] - System Creating Benchmarks...\n");
@@ -1754,8 +1741,6 @@ void DRESS_chatzakis(int argc, char **argv)
 
     queries_times = malloc(sizeof(double) * queries_size);
 
-    /*This is times statistics about query threads*/
-    // if coordinator thread is used do maxquerythread++
     threads_start_time = malloc(sizeof(struct timeval) * maxquerythread);
     threads_curr_time = malloc(sizeof(struct timeval) * maxquerythread);
 
@@ -1826,10 +1811,7 @@ void DRESS_chatzakis(int argc, char **argv)
         idx_1 = isax_index_init_inmemory_ekosmas(index_settings);
 
         // PHASE 1: Fill in of Receive Bufers and PHASE 2: Index Creation
-        // node_list *rawdatanodelist = preprocessing_botao_to_manos(dataset, dataset_size, idx_1, my_rank, groupnodenumber, 4000, 1.05f);
         raw_file_1 = index_creation_pRecBuf_new_ekosmas(dataset, num_of_time_series_per_process, idx_1, SIMPLE_WORK_STEALING_CREATE_MY_INDEX);
-
-        // printf("[MC] - Process with rank [%d] loaded the chunk of the dataset and created the local index.\n", my_rank);
     }
     else
     {
@@ -1849,8 +1831,6 @@ void DRESS_chatzakis(int argc, char **argv)
         {
             log_node_group_info();
         }
-
-        // print_process_bind_info(my_rank);
 
         idx_1 = isax_index_init_inmemory_ekosmas(index_settings);
 
@@ -1873,7 +1853,6 @@ void DRESS_chatzakis(int argc, char **argv)
     }
     COUNT_TOTAL_TIME_START
 
-    // MPI_Request *global_helper_requests
     global_helper_requests = malloc(sizeof(MPI_Request) * comm_sz);
 
     // PHASE 3: Query Answering
@@ -1941,10 +1920,10 @@ void DRESS_chatzakis(int argc, char **argv)
         queries_results = isax_query_answering_pdr_greedy_chatzakis(queries, queries_size, idx_1, minimum_distance, benchmark_estimations_filename, NULL, 1, INITIAL_ESTIMATION, &exact_search_ParISnew_inmemory_hybrid_ekosmas, NULL, NULL);
         break;
     case DISTRIBUTED_QUERY_ANSWERING_STATIC_GREEDY_WS_ALG: //!
-        queries_results = isax_query_answering_pdr_greedy_chatzakis(queries, queries_size, idx_1, minimum_distance, benchmark_estimations_filename, NULL, 0, INITIAL_ESTIMATION, &exact_search_workstealing_chatzakis, NULL, &exact_search_workstealing_helper_single_batch_chatzakis);
+        queries_results = isax_query_answering_pdr_greedy_chatzakis(queries, queries_size, idx_1, minimum_distance, benchmark_estimations_filename, basis_function_filename, 0, INITIAL_ESTIMATION, &exact_search_workstealing_chatzakis, NULL, &exact_search_workstealing_helper_single_batch_chatzakis);
         break;
     case DISTRIBUTED_QUERY_ANSWERING_STATIC_GREEDY_SORTED_WS_ALG: //!
-        queries_results = isax_query_answering_pdr_greedy_chatzakis(queries, queries_size, idx_1, minimum_distance, benchmark_estimations_filename, NULL, 1, INITIAL_ESTIMATION, &exact_search_workstealing_chatzakis, NULL, &exact_search_workstealing_helper_single_batch_chatzakis);
+        queries_results = isax_query_answering_pdr_greedy_chatzakis(queries, queries_size, idx_1, minimum_distance, benchmark_estimations_filename, basis_function_filename, 1, INITIAL_ESTIMATION, &exact_search_workstealing_chatzakis, NULL, &exact_search_workstealing_helper_single_batch_chatzakis);
         break;
 
     // Q-DRESS Error Handling
@@ -1952,8 +1931,6 @@ void DRESS_chatzakis(int argc, char **argv)
         printf("[MC] - DRESS: Invalid query mode!\n");
         exit(EXIT_FAILURE);
     }
-
-    // MPI_Barrier(MPI_COMM_WORLD);
 
     // Collect the partial answers from the other nodes and report the final answers
     COUNT_QUERIES_RESULTS_COLLECTION_TIME_START
@@ -1975,268 +1952,7 @@ void DRESS_chatzakis(int argc, char **argv)
     COUNT_TOTAL_TIME_END
 
     process_results_chatzakis(request);
-}
 
-void initial_DRESS(int argc, char **argv)
-{
-    /*read_block_length = 20000;
-    ts_group_length = 1;
-    backoff_multiplier = 1;
+    //collect_queries_times(queries_size);
 
-    if (produce_query_prediction_statistics)
-    {
-        query_statistics_file = fopen(query_statistics_filename, "w+");
-        per_query_total_bsf_changes = 0;
-        fprintf(query_statistics_file, "Query# BSF# BSFresult Leafs# TimeMS\n");
-    }
-
-    get_options_for_MESSI(argc, argv);
-
-    INIT_STATS();
-
-    isax_index_settings *index_settings = isax_index_settings_init(index_path , time_series_size , paa_segments , sax_cardinality , leaf_size , min_leaf_size , initial_lbl_size , flush_limit, initial_fbl_size, total_loaded_leaves, tight_bound , aggressive_check , 1 , inmemory_flag); // new index
-    CHECK_FOR_CORRECT_VERSION(function_type);
-
-    queries_times = malloc(sizeof(double) * queries_size);
-
-    // if coordinator thread is used do maxquerythread++
-    threads_start_time = malloc(sizeof(struct timeval) * maxquerythread);
-    threads_curr_time = malloc(sizeof(struct timeval) * maxquerythread);
-
-    initialize_queries_statistics_chatzakis();
-
-    COUNT_TOTAL_TIME_START
-    COUNT_MPI_TIME_START
-    int provided;
-    MPI_Init_thread(&argc, &argv, MPI_THREAD_MULTIPLE, &provided); // equivalent to MPI_Init(), configure the threads of threads that make MPI calls
-    if (provided < MPI_THREAD_MULTIPLE)
-    {
-        printf("The threading support level is lesser than that demanded.\n");
-        MPI_Abort(MPI_COMM_WORLD, EXIT_FAILURE);
-    }
-
-    MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
-    MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
-
-    if (share_with_nodes_bsf) // [MC] -- System wide BSF -- Need to init the communicators
-    {
-        // [MC] -- Create a type {INT,FLOAT}. INT-> query number, float->bsf
-        create_mpi_type();
-
-        //
-        //    [MC]
-        //    Every process has a communicator in order to broadcast the BSF values for system wide BSF.
-        //   Requests have similar meaning, but for receiving the new BSF values
-        //
-        communicators = malloc(sizeof(MPI_Comm) * comm_sz);
-        requests = malloc(sizeof(MPI_Request) * comm_sz);
-        shared_bsfs = malloc(sizeof(struct bsf_msg) * comm_sz);
-        bcasts_per_query = malloc(sizeof(int) * comm_sz);
-
-        // create the communicators, will be used later on BSF sharing among the nodes
-        // each node will bcast(as sender) to one communicator and
-        // and will bcast as (a receiver) to all the other communicators
-        for (int i = 0; i < comm_sz; ++i)
-        {
-            MPI_Comm_dup(MPI_COMM_WORLD, &(communicators[i]));
-            requests[i] = MPI_REQUEST_NULL;
-
-            shared_bsfs[i].q_num = -1;
-            shared_bsfs[i].bsf = -1.0;
-
-            bcasts_per_query[i] = 0;
-        }
-    }
-
-    COUNT_MPI_TIME_END
-
-    if (my_rank == MASTER)
-    {
-        initial_log_chatzakis();
-    }
-
-    long int num_of_time_series_per_process = dataset_size;
-
-    if (comm_sz == 1)
-    {
-        classic_MESSI_chatzakis(index_settings, num_of_time_series_per_process);
-        return 0;
-    }
-
-    if (!IS_RUNNING_PARTIAL_REP_DISTRIBUTED_QUERIES)
-    {
-        // run Distributed MESSI
-        // if the whole dataset is provided to each node we must find the number of data series that each node need to process
-        if (!mpi_already_splitted_dataset && !IS_RUNNING_DISTRIBUTED_QUERIES)
-        {
-            num_of_time_series_per_process = split_data_series_for_processes(dataset_size); // [MC] - assigns a chunk of data to the available nodes
-        }
-
-        if (my_rank == MASTER)
-        {
-            printf("[MC] - From MASTER Node: Calculated time_series_per_process:  %lu\n", num_of_time_series_per_process);
-        }
-
-        print_process_bind_info(my_rank);
-
-        // Run D-MESSI
-        // ekosmas's version according to botao's VERSION-9990
-        idx_1 = isax_index_init_inmemory_ekosmas(index_settings);
-
-        // PHASE 1: Fill in of Receive Bufers and PHASE 2: Index Creation
-        raw_file_1 = index_creation_pRecBuf_new_ekosmas(dataset, num_of_time_series_per_process, idx_1, SIMPLE_WORK_STEALING_CREATE_MY_INDEX);
-
-        // printf("[MC] - Process with rank [%d] loaded the chunk of the dataset and created the local index.\n", my_rank);
-
-        // load other node chunk of dataset and build the tree index for that chunk
-        if (simple_work_stealing && query_mode == SEQUENTIAL_QUERY_ANSWERING)
-        {
-            idx_2 = isax_index_init_inmemory_ekosmas(index_settings);
-            raw_file_2 = index_creation_pRecBuf_new_ekosmas(dataset, num_of_time_series_per_process, idx_2, SIMPLE_WORK_STEALING_CREATE_OTHER_NODE_INDEX_MULTINODE_PAIR); // chatzakis
-            printf("[%d] Load other node chunk of dataset end\n", my_rank);
-        }
-
-        tmp_raw_file = raw_file_1;
-    }
-    else
-    {
-        long int time_series_per_node_group;
-        node_group_total_nodes = comm_sz / node_groups_number;
-
-        time_series_per_node_group = split_data_series_for_node_groups(dataset_size, node_groups_number);
-
-        if (my_rank == MASTER)
-        {
-            printf("[MC] - From MASTER Node: Calculated time_series_per_node_group:  %lu\n", time_series_per_node_group);
-        }
-
-        // create the groups
-        node_groups = malloc(sizeof(pdr_node_group) * node_groups_number);
-        for (int i = 0; i < node_groups_number; i++)
-        {
-            node_groups[i].total_time_series = time_series_per_node_group;
-            node_groups[i].node_group_id = i;
-            node_groups[i].total_nodes = node_group_total_nodes;
-
-            node_groups[i].coordinator_node = (i * node_group_total_nodes);
-            node_groups[i].nodes = malloc(sizeof(int) * node_group_total_nodes);
-
-            for (int n = 0; n < node_group_total_nodes; n++)
-            {
-                node_groups[i].nodes[n] = (i * node_group_total_nodes) + n;
-            }
-        }
-
-        if (my_rank == MASTER)
-        {
-            for (int i = 0; i < node_groups_number; i++)
-            {
-                printf("Group [%d]: \n", node_groups[i].node_group_id);
-                printf("    Time Series: %lu\n", node_groups[i].total_time_series);
-                printf("    Total Nodes: %d\n", node_groups[i].total_nodes);
-                printf("    Coordinator Node: %d\n", node_groups[i].coordinator_node);
-                printf("    Nodes: [ ");
-                for (int n = 0; n < node_groups[i].total_nodes; n++)
-                {
-                    printf("%d ", node_groups[i].nodes[n]);
-                }
-                printf("]\n");
-            }
-        }
-
-        print_process_bind_info(my_rank);
-
-        idx_1 = isax_index_init_inmemory_ekosmas(index_settings);
-
-        raw_file_1 = NULL; // index_creation_pRecBuf_new_ekosmas(dataset, num_of_time_series_per_process, idx_1, SIMPLE_WORK_STEALING_CREATE_MY_INDEX);
-    }
-
-    COUNT_TOTAL_TIME_END
-    MPI_Barrier(MPI_COMM_WORLD);
-    if (my_rank == MASTER)
-    {
-        printf("[MC] - Master: Index creation phase completed.\n");
-    }
-    COUNT_TOTAL_TIME_START
-
-    // PHASE 3: Query Answering
-    float *queries_results;
-    switch (query_mode)
-    {
-    case WORKSTEALING_SUPPORTED_QUERY_ANSWERING:
-        queries_results = isax_query_binary_file_distributed_workstealing_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_workstealing_chatzakis, basis_function_filename, &exact_search_workstealing_helper_single_batch_chatzakis);
-        break;
-
-    // Classic Query Answering - Sequential and SW-BSF mode
-    case SEQUENTIAL_QUERY_ANSWERING:
-        queries_results = isax_query_binary_file_traditional_ekosmas(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_ekosmas);
-        break;
-
-    // Simple Distributed Query Approach with basic static chunking
-    case DISTRIBUTED_QUERY_ANSWERING_STATIC:
-        queries_results = isax_query_binary_file_distributed_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_ekosmas);
-        break;
-
-    // Dynamic Query Modes
-    case DISTRIBUTED_QUERY_ANSWERING_DYNAMIC:
-        queries_results = isax_query_binary_file_distributed_makespan_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_dynamic_module_chatzakis, NULL, MODULE, 0, NULL, 0);
-        break;
-    case DISTRIBUTED_QUERY_ANSWERING_DYNAMIC_COORDINATOR:
-        queries_results = isax_query_binary_file_distributed_makespan_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_dynamic_module_chatzakis, NULL, COORDINATOR, 0, NULL, 0 );
-        break;
-    case DISTRIBUTED_QUERY_ANSWERING_DYNAMIC_COORDINATOR_THREAD:
-        queries_results = isax_query_binary_file_distributed_makespan_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_dynamic_module_chatzakis, NULL, THREAD, 0, NULL, 0);
-        break;
-    case DISTRIBUTED_QUERY_ANSWERING_DYNAMIC_SORTED_QUERIES:
-        queries_results = isax_query_binary_file_distributed_makespan_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_dynamic_module_chatzakis, NULL, MODULE, 1, benchmark_estimations_filename, INITIAL_ESTIMATION);
-        break;
-    case DISTRIBUTED_QUERY_ANSWERING_DYNAMIC_COORDINATOR_SORTED_QUERIES:
-        queries_results = isax_query_binary_file_distributed_makespan_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_dynamic_module_chatzakis, NULL, COORDINATOR, 1, benchmark_estimations_filename, INITIAL_ESTIMATION);
-        break;
-    case DISTRIBUTED_QUERY_ANSWERING_DYNAMIC_COORDINATOR_THREAD_SORTED_QUERIES:
-        queries_results = isax_query_binary_file_distributed_makespan_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_dynamic_module_chatzakis, NULL, THREAD, 1, benchmark_estimations_filename, INITIAL_ESTIMATION);
-        break;
-
-    // Greedy alg + real execution time predictions with simulations
-    case DISTRIBUTED_QUERY_ANSWERING_STATIC_GREEDY:
-        queries_results = isax_query_binary_file_static_distributed_dress_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_ekosmas, NULL, benchmark_estimations_filename, 0, INITIAL_ESTIMATION);
-        break;
-    case DISTRIBUTED_QUERY_ANSWERING_STATIC_GREEDY_SORTED:
-        queries_results = isax_query_binary_file_static_distributed_dress_query_answering_chatzakis(queries, queries_size, idx_1, minimum_distance, &exact_search_ParISnew_inmemory_hybrid_ekosmas, NULL, benchmark_estimations_filename, 1, INITIAL_ESTIMATION);
-        break;
-
-    // Index Query Answering
-    case INDEX_QUERY_ANSWERING:
-        query_index = create_query_index_chatzakis();
-        printf("[MC] -  Query index not implemented yet.\n");
-        exit(EXIT_FAILURE);
-        break;
-
-    default:
-        printf("[MC] - Invalid query mode!.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    // Collect the partial answers from the other nodes and report the final answers
-    COUNT_QUERIES_RESULTS_COLLECTION_TIME_START
-
-    // each node send the result for the queries to the coordinator node
-    COUNT_MPI_TIME_START
-    MPI_Request request;
-    MPI_Isend(&queries_results[0], queries_size, MPI_FLOAT, MASTER, QUERIES_RESULTS_TAG, MPI_COMM_WORLD, &request);
-    COUNT_MPI_TIME_END
-
-    if (my_rank == MASTER)
-    {
-        recv_final_result(queries_size);
-    }
-
-    COUNT_MPI_TIME_START
-    MPI_Wait(&request, MPI_STATUS_IGNORE);
-    COUNT_MPI_TIME_END
-
-    COUNT_QUERIES_RESULTS_COLLECTION_TIME_END
-    COUNT_TOTAL_TIME_END
-
-    process_results_chatzakis(request);*/
 }

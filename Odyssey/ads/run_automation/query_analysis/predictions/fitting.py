@@ -49,7 +49,7 @@ def fit(x_a,y, plot_filepath, plot_title, plot_label_X, plot_label_Y, func):
     plt.close()
 
 
-filename = "./input100astro.txt"
+filename = "./input1000yandex.txt"
 bsfMappings = {}
 
 with open(filename) as file:
@@ -79,6 +79,6 @@ with open(filename) as file:
 #print(bsfMappings)
 
 #plot_data(list(bsfMappings.keys()), list(bsfMappings.values()), "test.png", "t", "blue","t","t")
-fit(list(bsfMappings.keys()), list(bsfMappings.values()), "./plots/astro.png", "Total Execution Time vs initial BSF", "1st BSF of Query", "Total Execution Time (seconds)", linear)
+fit(list(bsfMappings.keys()), list(bsfMappings.values()), "./plots/yandex.png", "Total Execution Time vs initial BSF", "1st BSF of Query", "Total Execution Time (seconds)", linear)
 
 

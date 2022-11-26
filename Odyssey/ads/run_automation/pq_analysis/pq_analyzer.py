@@ -66,7 +66,7 @@ def fit_log(x,y, plot_savepath):
     plt.savefig(plot_savepath)
 
 
-filename = "./inputs/pq_stats_100simple.txt"
+filename = "./inputs/YANDEX_pq_stats_new.txt"
 bsfMappings = {}
 
 with open(filename) as file:
@@ -93,7 +93,7 @@ medians = {}
 counter = 0
 for key in bsfMappings:
     
-    if counter == 500:
+    if counter == 90:
         break
 
     currBSF = key
@@ -118,4 +118,4 @@ for key in bsfMappings:
 #fit(list(medians.keys()), list(medians.values()), "./plots/median.png", "Medians vs BSF", "1st BSF of Query", "Median of the sizes of Priority Queues", sig_parameterized)
 #fit(list(avgs.keys()), list(avgs.values()), "./plots/avgs.png", "Averages vs BSF", "1st BSF", "Average size of pq", sig_parameterized)
 
-fit(list(medians.keys()), list(medians.values()), "./plots/seismicMedian_new.png", "Medians vs BSF", "1st Query BSF", "Median sizes of Priority Queues", sig_parameterized)
+fit(list(medians.keys()), list(medians.values()), "./plots/yandex.png", "Medians vs BSF", "1st Query BSF", "Median sizes of Priority Queues", sig_parameterized)
