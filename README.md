@@ -1,8 +1,6 @@
 # Odyssey 
 Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Series Similarity Search", Manos Chatzakis, Panagiota Fatourou, Eleftherios Kosmas, Themis Palpanas, Botao Peng. Revisions, VLDB 2022
 
-## Roadmap
-* [General](#general)
 * [Compilation](#compilation)
 * [Documentation](#documentation)
 * [Data Generators](#data-generators)
@@ -11,8 +9,6 @@ Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Ser
 * [Involved People](#involved-people)
 * [About](#about)
 
-## General
-Odyssey is a modular distributed similarity search framework, appropriate for distributed query answering for big data series collections. It is implemented in C, using MPI. 
 
 ## Compilation
 To compile the program from scratch, use
