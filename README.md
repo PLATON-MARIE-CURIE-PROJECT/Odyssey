@@ -303,17 +303,16 @@ We are evaluating the performance of Odyssey using the datasets listed below.
 * [Sift](https://drive.google.com/file/d/1kWoKRMyaW2jLmOyD-xkaopAbp3GfHbJy/view): Contains image (sift) descriptors
 
 
-
 ## Experiments
-We contucted our experimental evaluation with Odyssey algorithms using automated python scripts. Those scripts are configured to schedule specific types of experiments selecting and evaluating different modules of the code. You can run this script by using:
+We contucted our experimental evaluation with Odyssey algorithms using automated python scripts. Those scripts are configured to schedule specific types of experiments selecting and evaluating different modules of the code.
 ```sh
 cd ads/run_automation/
-python3 scheduler.py # after you configure the scheduler
+python3 scheduler.py # after configuration
 ```
 The results of the runs made by scheduler.py are saved in folders with strict hierarchy, that is later exploited by statistics.py script to produce the experimental results of the different runs.
 ```sh
 cd ads/run_automation/
-python3 statistics.py # after you configure the statistics script
+python3 statistics.py # after configuration
 ```
 
 ## Involved People
