@@ -55,7 +55,6 @@ mpirun ../bin/ads   --dataset [<string>]
 Odyssey consists of a set of modules that the user selects to use to create the index and start answering queries.
 
 ### Index Creation Primitives
-#### Data Partitioning
 The function below is used for chunk-splitting of the dataset among the available nodes.
 ```c
 /**
@@ -74,7 +73,6 @@ float *index_creation_node_groups_chatzakis(const char *ifilename, long int ts_n
                                             pdr_node_group *node_groups, int total_node_groups, int total_nodes_per_nodegroup);
 ```
 
-#### Mapping (Density Aware Distribution)
 The index preprocessing function below is used to distribute the data to each node before index creation.
 ```c
 /**
@@ -95,7 +93,6 @@ float *index_creation_node_groups_chatzakis_botao_prepro(const char *ifilename, 
 ```
 
 ### Coordination Primitives
-#### Query Scheduling
 Static Scheduling
 ```c
 /**
@@ -171,9 +168,6 @@ float *isax_query_answering_pdr_dynamic_chatzakis(const char *ifilename, int q_n
                                                   query_result (*ws_search_function)(ws_search_function_params ws_args));
 ```
 
-
-
-#### Exact Search Routines
 The exact search routines use an input argument struct:
 ```c
 /**
@@ -280,7 +274,7 @@ Usage Example:
 ```
 Example/Usage scripts are provided in the corresponding directory.
 
-### Data Series Query Generator
+### Data Series Generator
 To compile the generator
 ```sh
 cd ads/run_automation/query_analysis/query_generation/
@@ -296,7 +290,6 @@ Example/Usage scripts are provided in the corresponding directory.
 
 ## Datasets
 We are evaluating the performance of Odyssey using the datasets listed below.
-
 * [Seismic](https://drive.google.com/file/d/1XML3uywZdLxChlk_JgglPtVIEEZGs5qD/view): Contains seismic instrument recordings from stations around the world
 * [Astro](https://drive.google.com/file/d/1bmajMOgdR-QhQXujVpoByZ9gHpprUncV/view): Represents celestial objects
 * [Deep](https://drive.google.com/file/d/1ecvWA8i0ql-cmMI4oL63oOUIYzaWRc4z/view): Contains deep embeddings originating from a convoltional neural network
