@@ -2,14 +2,14 @@
 Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Series Similarity Search", Manos Chatzakis, Panagiota Fatourou, Eleftherios Kosmas, Themis Palpanas, Botao Peng. Revisions, VLDB 2022
 
 ## Roadmap
-* [General]()
-* [Compilation]()
-* [Documentation]()
-* [Data Generators]()
-* [Datasets]()
-* [Experiments]()
-* [Involved People]()
-* [About]()
+* [General](#general)
+* [Compilation](#compilation)
+* [Documentation](#documentation)
+* [Data Generators](#data-generators)
+* [Datasets](#datasets)
+* [Experiments](#experiments)
+* [Involved People](#involved-people)
+* [About](#about)
 
 ## General
 Odyssey is a modular distributed similarity search framework, appropriate for distributed query answering for big data series collections. It is implemented in C, using MPI. 
@@ -27,7 +27,6 @@ chmod u+x configure
 
 make
 ```
-
 Or easier,
 ```sh
 cd ads/run_automation/
@@ -321,7 +320,6 @@ cd ads/run_automation/
 python3 statistics.py # after you configure the statistics script
 ```
 
-
 ## Involved People
 * [Manos Chatzakis](https://github.com/MChatzakis), University of Crete and ICS-FORTH (chatzakis@ics.forth.gr), Currently at [EPFL](https://www.epfl.ch/en/).
 * [Panagiota Fatourou](http://users.ics.forth.gr/~faturu/), University of Crete, ICS-FORTH, University of Paris and LIPADE (faturu@ics.forth.gr)
@@ -329,7 +327,7 @@ python3 statistics.py # after you configure the statistics script
 * [Themis Palpanas](https://helios2.mi.parisdescartes.fr/~themisp/), University of Paris and LIPADE (themis@mi.parisdescartes.fr)
 * Botao Peng, Chinese Academy of Sciences (pengbotao@ict.ac.cn)
 
-## Platon
+## About
 Odyssey is developed under [Platon](http://users.ics.forth.gr/~faturu/platon/index.html) research project.
 
 
