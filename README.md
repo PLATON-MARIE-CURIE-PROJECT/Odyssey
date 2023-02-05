@@ -1,5 +1,5 @@
 # Odyssey 
-Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Series Similarity Search", Manos Chatzakis, Panagiota Fatourou, Eleftherios Kosmas, Themis Palpanas, Botao Peng. VLDB 2022
+Repository for the paper "Odyssey: A Journey in the Land of Distributed Data Series Similarity Search", Manos Chatzakis, Panagiota Fatourou, Eleftherios Kosmas, Themis Palpanas, Botao Peng. VLDB 2023
 
 Odyssey is a modular distributed similarity search framework, appropriate for big data series collections.
 
